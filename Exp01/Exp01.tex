@@ -98,16 +98,6 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \renewcommand{\labelenumi}{\theenumi)}
 
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% 重定义section标题
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\CTEXsetup[format={\sihao\CJKfamily{zhhei}\zihao{4}},number={\chinese{section}},name={,、~},aftername={},indent={0pt},beforeskip={6pt},afterskip={6pt},format+={\flushleft}]{section}
-\CTEXsetup[format={\Large\bfseries\CJKfamily{zhkai}\zihao{5}},name={（,）},number={\chinese{subsection}},aftername={},indent={22pt},beforeskip={14pt},afterskip={2pt}]{subsection}
-\CTEXsetup[number={\chinese{section}},name={附录, ~~ }]{appendix}
-
-
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % 标题名称中文化
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -169,7 +159,7 @@
 
 \newcommand{\major}{物理学院}
 \newcommand{\name}{黄阅迅，李秋阳}
-\newcommand{\stuid}{PB18020631,请补充}
+\newcommand{\stuid}{PB18020631, PB18020567}
 \newcommand{\newdate}{\today}
 
 
@@ -209,8 +199,9 @@
 % =============================================
 
 \section{实验目的}
+本次实验的实验目的为：
 \begin{itemize}
-  \item 对本实验室的示波器、稳压电源、函数信号发生器、万用表等仪器的使用方法有基本了解，为今后的实验打下基础。
+  \item 对示波器、稳压电源、函数信号发生器、万用表等仪器的使用方法有基本了解，为今后的实验打下基础。
   \item 利用示波器观察信号波形，测量振幅和周期（频率）。
   \item 学会对有源单口网络等效内阻的测量。
 \end{itemize}
@@ -218,7 +209,7 @@
 \section{实验原理}
 \subsection{示波器（OSCILLOSCOPE）}
 示波器是一种用途广泛的电子仪器，可以通过扫描信号显示电信号的波形，同时进行各种测量。
-示波器是电子测量中必备的仪器，本次实验中使用的示波器为SS7802A型。熟练 
+示波器是电子测量中必备的仪器，本次实验中使用的示波器为DSO-X 2014A型。熟练 
 掌握示波器有三个原则：
 \begin{itemize}
   \item 每调节一个开关或旋钮都有明确的目的。
@@ -239,7 +230,7 @@
 函数信号发生器可以用于产生并提供多种交流输出波形，如正弦波、三角波、锯齿波、矩形波、方波等。
 可以为被测电路提供测试信号，也可以作为标准源对一般信号进行校准或者对比。其电压输出可以通过电压输出
 幅度旋钮调节；频率输出可以通过频率调节旋钮和频率选择键配合使用。本次实验使用的是
-TFG6010型函数发生器。它在测试、测量系统中得到广泛应用，如用来测量仪器的性能参数、分析线性系统等。
+SDG5112型函数发生器。它在测试、测量系统中得到广泛应用，如用来测量仪器的性能参数、分析线性系统等。
 
 函数信号发生器从输出端往里看可以等效为一个电压源$U_{oc}$与内阻$R_s$串联组成的电源，如图 \ref{fig:FunR}所示。
 则通过外加一个负载$R_L$并测量其上的电压$U_L$，可以通过式 (\ref{eqa:Rs})计算出其内阻。
@@ -256,14 +247,14 @@ R_s=\left(\frac{U_{oc}}{U_L}-1\right)R_L
 \end{figure}
 \subsection{直流稳压电源（DC REGULATED POWER SUPPLY）}
 直流稳压电源能够为的电子设备提供持续、稳定、满足负载要求的直流电能。本次实验使用的直流
-稳压电源为GPD3303型，能够在0~30V范围内连续可调，同时具有自动过载保护和短路保护功能。
+稳压电源为GPD3303型，能够在0\~{}30V范围内连续可调，同时具有自动过载保护和短路保护功能。
 \subsection{数字万用表（DIGITAL MULTMETER）}
 数字万用表可以用来测量直流和交流电压以及电流、电阻、电容、二极管正向电压等，具有LCD显示器，最大
-显示值为"19999"，过量程显示"OPEN"。本次实验使用的是SM2030A型数字毫伏表。其注意事项如下：
+显示值为"19999"，过量程显示"OPEN"。本次实验使用的是34450A型数字毫伏表。其注意事项如下：
 \begin{itemize}
   \item 测量电阻时，被测量电阻不能带电。
   \item 测量电容时，要先放电，然后进行测量。
-  \item 用数字万用表测正弦交流电压时，频率范围是40~10kHZ。
+  \item 用数字万用表测正弦交流电压时，频率范围是40\~{}10kHZ。
 \end{itemize}
 \section{实验内容与步骤}
 \subsection{实验内容}
@@ -280,68 +271,121 @@ R_s=\left(\frac{U_{oc}}{U_L}-1\right)R_L
 \section{实验总结}
 blablabla
 \section{实验思考题}
-balabalabala
 
-\begin{appendix}
+\subsection{问题一}
+总结各种仪器的使用方法以及注意事项。
+\subsubsection{直流稳压电源}
+基本使用方法如下：
+\begin{enumerate}
+  \item 正确连线后打开电源。输出电压的范围为0~30V，输出电流为0~3A。
+  \item 选择工作模式和输出端，操作模式有独立/串联/并联三种。输出端有CH1/2/3。
+  \item Voltage旋钮可以调节电压大小，Current旋钮可以调节电流大小，按下均可细调。
+  \item 调节完成后，按下output旋钮进行输出。
+  \item 当电流值小于输出设定值时，其工作在恒压源模式，CV亮绿灯。当电流达到输出设定值时，其工作咋恒流模式，CC亮绿灯。
+  \item 通过跟踪开关可以选择电源的跟踪模式为串联或者并联，其可完成自动连线，可用于需要增强输出电压或者增强输出电流由或是需要两个电源电压/电流相等下工作的情形。
+\end{enumerate}
 
-\section{代码示例}
+注意事项如下：
+\begin{enumerate}
+  \item 预先设置合适的电压和电源值；
+  \item "+","-"端口输出线不能短路；
+  \item 与被测电路连接时，"+"、"-"输出线不能接错；
+  \item 与被测电路连接时，一般先接与地线相连的端口。
+\end{enumerate}
+\subsubsection{函数信号发生器}
+基本使用方法如下：
+\begin{enumerate}
+  \item 正确连线后打开电源。交流信号源可以用于产生多种交流输出波形，为被测电路提供信号。
+  \item 选择合适的工作功能和输出端，选择需要的波形并调节参数，其输出频率范围不同波形不一致，一般为1μHz\~{}40MHz,对正弦波可达160MHz。
+  \item 按下[Wave-forms]键即可调节波形，按下[parameter]键可以调节参数，参数可以通过大旋钮调节，也可以按下数字并选择单位进行调节。
+  \item 输出负载可以选择高负载或者50Ω，按下[CH1/CH2]键，即可选择负载模式，一般采用高负载。
+  \item 确定参数后，即可输出。
+\end{enumerate}
 
-\begin{lstlisting}[caption={一段C代码},captionpos=b]
-#include <stdio.h>
-int main (int argc, char *argv[]){
-  printf("Hello world!");
-}
-\end{lstlisting}
+注意事项如下：
+\begin{enumerate}
+  \item 输出线的两个夹子不能短路；
+  \item 不能直接接到带有较高电流电压的两点之间；
+  \item 与被测电路连接时，红夹子接信号源，黑夹子接地。
+\end{enumerate}
+\subsubsection{示波器}
+基本使用方法如下：
+\begin{enumerate}
+  \item 正确连线后打开电源，选择需要的工作通道和模式。该款示波器的带宽是100MHz。不具有特殊部件下，输入模拟信号最大允许电压为300 Vrms,400 Vpk, 瞬间过电压 1.6kVpk。
+  \item 首先调节波形稳定，首先粗调水平扫描速率至能比较好地看到波形，然后调节[Trigger]选择合适的源，可调节[Trigger]至稳定为止。
+  \item 选择合适的耦合，按下通道后菜单即可选择，希望观测AC分量时选择AC耦合，希望观察DC分量时选择DC耦合。
+  \item 选择正确的时间模式。“正常时间模式”显示的是一维的X(t)图形，X为信号。“X-Y”模式时显示的是XY空间的相图，意即两个信号分别作为X或Y分量。
+  \item 调节水平扫描速率旋钮可以调整显示波形的周期数。
+  \item 调节垂直灵敏度旋钮可以改变显示波形的高度，调节位移旋钮可以调整波形垂直位置。
+  \item 进行测量时，按下[Cursors]按钮可以选择与移动光标进行测量。按下[Meas]可以自动测量和添加测量量。进行手动测量可以测量得到自动测量中没有预设的测量量，同时也可以认为减少噪声的干扰，进行更精确的测量。
+\end{enumerate}
 
-\section{表格示例}
-表 \ref{tab:tab1}与表 \ref{tab:tab2}展示了表格示例
-\begin{table}[!h!tbp]
-\caption{一个简单的表格}\label{tab:tab1}
-  \centering
-  \begin{tabular}{|l|c|c|}
-	\hline
-	功能          &WEB         &APP         \\ \hline
-	注册          &$\surd$     &$\surd$     \\ \hline
-	登录          &$\surd$     &$\surd$     \\ \hline
-	推送          &$\times$    &$\surd$     \\ \hline
-\end{tabular}
-\end{table}
+注意事项如下：
+\begin{enumerate}
+  \item 显示亮度应该合适，不能长时间固定亮点；
+  \item 被测电压幅值不应该超过示波器最大允许输入电压；
+  \item 被测电压频率不应超过其带宽值；
+  \item 与被测电路连接时，探针接信号端，黑夹子接地；
+  \item 读测波形参数时，波形高度应该超过屏幕高度的一半。
+\end{enumerate}
 
-\begin{table}[!h!tbp]
-\caption{自定义表格}\label{tab:tab2}
-  \centering
-\begin{tabular*}{0.75\textwidth}{@{\extracolsep{\fill}}lcc}
-    \toprule
-    功能          &WEB         &APP         \\
-    \midrule
-    注册          &$\surd$     &$\surd$     \\
-    登录          &$\surd$     &$\surd$     \\
-    推送          &$\times$    &$\surd$     \\
-    \bottomrule
-\end{tabular*}
-\end{table}
+\subsubsection{数字万用表}
+基本使用方法如下：
+\begin{enumerate}
+  \item 正确连线，打开电源。
+  \item 选择合适的工作模式，即选择需要测量的量。
+  \item 调整合适的测量速度，量程由万用表自动选择。
+\end{enumerate}
 
-
-\section{图片示例}
-图 \ref{fig:logo}展示了一个图片示例。
+注意事项如下：
+\begin{enumerate}
+  \item 测量电阻时，被测电阻不能带电；
+  \item 测量电容时，先放电后测量；
+  \item 被测电压值不能超过端口允许值(直流1000VDC,交流750Vrms)；
+  \item 被测交流电压频率不应超过其带宽值(技术文档上写为100kHz,但实际10kHz已不准)；
+  \item 测试前，选择正确的端口接入测试引线，选择正确的功能键，选择合适的分辨率/速度；
+  \item 表笔接在“mA”或“A”端口时，不能测电压（烧保险丝）。
+\end{enumerate}
+\subsection{问题二}
+写出所有你能想到的函数信号发生器内阻的测量方法，并详细说明设计思路。
+\subsubsection{方法一}
+通过接一负载，在已知$U_oc$下可以一次测量得到电压，如前实验原理所说。若不知道$U_oc$，则可以通过连接如图 \ref{fig:FunR2}所示的电路，
+测量出不同的U-I值，画出U-I曲线图。根据式 \ref{eqa:Rs2}，通过拟合出斜率与截距，即可测量出内阻
+\begin{equation}
+U_l=U_{oc}-R_sI_l
+\label{eqa:Rs2}
+\end{equation}
+  
 \begin{figure}[htbp]
 \centering
-\fbox{\includegraphics[width=0.5\linewidth]{logo}}
-\caption{blablabla}
-\label{fig:logo}
+\fbox{\includegraphics[width=0.2\linewidth]{FunR2}}
+\caption{U-I法函数信号发生器内阻测量图}
+\label{fig:FunR2}
 \end{figure}
 
-\section{公式示例}
-式 (\ref{eqa:01})展示了一个公式的例子。
+\subsection{方法二}
+通过电阻箱与电压表测量，如图 \ref{fig:FunR3}所示。调节电阻箱的值为$R_{l1}$与$R_{l2}$分别测量。
+根据公式 \ref{eqa:Rs}，得到两组式子，联立消去$U_oc$即可解出$R_s$的值。
+\begin{figure}[htbp]
+  \centering
+  \fbox{\includegraphics[width=0.2\linewidth]{FunR2}}
+  \caption{电阻箱电压表函数信号发生器内阻测量图}
+  \label{fig:FunR3}
+  \end{figure}
+  
+\subsection{方法三}
+通过电阻箱与电流表测量，如图 \ref{fig:FunR4}所示。调节电阻箱的值为$R_{l1}$与$R_{l2}$分别测量。
+根据公式 \ref{eqa:Rs3}，得到两组式子，联立消去$U_oc$即可解出$R_s$的值。
 \begin{equation}
-S_n = \frac{X_1 + X_2 + \cdots + X_n}{n}
-      = \frac{1}{n}\sum_{i}^{n} X_i
-\label{eqa:01}
+  I\left(R_s+R_l\right)=U_{oc}
+\label{eqa:Rs3}
 \end{equation}
-
-
-
-
-\end{appendix}
-
+    
+\begin{figure}[htbp]
+  \centering
+  \fbox{\includegraphics[width=0.2\linewidth]{FunR2}}
+  \caption{电阻箱电流表法函数信号发生器内阻测量图}
+  \label{fig:FunR4}
+  \end{figure}
+  
 \end{document}
