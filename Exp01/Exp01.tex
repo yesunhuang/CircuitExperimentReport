@@ -292,7 +292,13 @@ R_s=\left(\frac{U_{oc}}{U_L}-1\right)R_L
 	频率$f$ & 1000Hz & $\Delta x$=1.004ms;~$\frac{1}{\Delta x}=996.02$Hz\\\hline
 		\end{tabular}
 		\end{center}
-		\includegraphics[scale=0.4]{DC}
+    波形图如图 \ref{fig:DC}所示。
+    \begin{figure}[htbp]
+    \centering
+    \fbox{\includegraphics[width=0.5\linewidth]{DC.jpg}}
+    \caption{DC下波形示意图}
+    \label{fig:DC}
+    \end{figure}
 	\par\textbf{AC:}
 	\begin{center}
 	\begin{tabular}{|r|r|r|}\hline
@@ -301,7 +307,13 @@ R_s=\left(\frac{U_{oc}}{U_L}-1\right)R_L
 	频率$f$ & 1000Hz & $\Delta x$=1.000ms;~$\frac{1}{\Delta x}=1.0000$kHz\\\hline
 		\end{tabular}
 		\end{center}
-		\includegraphics[scale=0.4]{AC}
+    波形图如图 \ref{fig:AC}所示。
+    \begin{figure}[htbp]
+    \centering
+    \fbox{\includegraphics[width=0.5\linewidth]{AC.jpg}}
+    \caption{AC下波形示意图}
+    \label{fig:AC}
+    \end{figure}
 \subsection{分析2}
 	在DC档，示波器自动滤掉了直流成分，所以低电平在0左右；而AC档则没有这个处理，所以高低电平大致关于0电平对称。
 \subsection{实验3数据}
@@ -320,6 +332,7 @@ R_s=\left(\frac{U_{oc}}{U_L}-1\right)R_L
 	电源等效内阻$R_S$=$\left( \frac{U_{OC}}{U_L}-1 \right)R_L$=51.9$\Omega$.
 \subsection{分析4}
 	为了使得测量结果比较精确，应该使得负载电阻和电源内阻大致相等，所以使用100$\Omega$的电阻可以满足这一要求。测量出来电源内阻仅有约50$\Omega$，是很小的，这对于电压源是很有利的，可以尽可能的提高电压源的带负载能力。
+\newpage
 \section{实验总结}
 	在本次实验中，我们通过一些基本的物理量，了解了直流稳压电源、函数信号发生器、万用表和示波器的基本使用方法。同时我们也发现，任何仪器都有其适用范围，可以提前查询指南或者进行测试得知。在适用范围之外仪器的误差将变得很大，对测量的结果造成极大影响。
 \section{实验思考题}
