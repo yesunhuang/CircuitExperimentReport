@@ -32,7 +32,15 @@
 \setlength{\parindent}{22pt} %重新定义缩进长度
 \setlength{\baselineskip}{20pt}  %定义行间距
 %\renewcommand{\baselinestretch}{1.1} %定义行间距
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 数学符号
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand\pd{\partial}
+\newcommand\dd{\thinspace\mathrm{d}}
+\newcommand\pdone[2]{\frac{\pd #1}{\pd #2}}
+\newcommand\pdtwo[2]{\frac{\pd^2 #1}{\pd #2 ^2}}
+\newcommand\ddone[2]{\frac{\dd #1}{\dd #2}}
+\newcommand\ddtwo[2]{\frac{\dd^2 #1}{\dd #2 ^2}}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % 列表设置
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -261,81 +269,62 @@
 
 \section{实验数据处理与分析}
 \subsection{RC一阶电路零输入和零状态响应}
+实验所测得波形图如附图一所示。所测得零状态与零输入响应的时间常数分别为
+\begin{equation}
+  \tau_1=0.109ms;~\tau_2=0.116ms;
+\label{eqa:timeConstant}
+\end{equation}
+可见相差不大，而理论上给出时间常数为
+\begin{equation}
+  \tau_{theory}=RC=0.1ms
+\end{equation}
+对比可见与理论值吻合得较好。
 \subsection{误差分析1}
+对零状态和零输入的均方根相对误差为
+\begin{equation}
+  RE_1=\left|\frac{0.109-0.1}{0.1}\right|\times100\%=9\%;\;
+  RE_2=\left|\frac{0.116-0.1}{0.1}\right|\times100\%=16\%;
+\end{equation}
+可见百分比误差略大，而在零输入响应的误差与理论值相差更大。这应该是测量的误差造成的，示波器的最小分度值为$0.2V$,因此在测量时间常数对应的电压点时
+无法与格线对其，有较大的读数误差。同时，零输入状态下曲线为凹函数，因此判断的误差更大。
 \subsection{RC积分电路}
+RC积分电路测得波形图如附图一所示。则从图中可根据积分电路电压关系求出被积电压
+\begin{equation}
+  P(t)=\tau \frac{d u_{c}}{dt}=1\mu F\times10k\Omega\times\frac{2.645V-2.415V}{0.5ms}\approx5V
+\end{equation}
+波形图在稳定时上下端峰值几乎维持不变。
 \subsection{误差分析2}
+可见在当前有效数字下，计算预测结果与实际结果$5V$完全吻合。说明在当前精度下，与理论吻合得相当好。但实际上考虑多一位有效数字时，$\Delta V=0.4V$。实验误差主要来自示波器读数，但电容箱的电容可能并不准确，导致理论值可能出现
+一定偏差。
 \subsection{RC微分电路}
+实验测得波形图中的上峰值为$U_{p+}=4.76V$，下峰值为$U_{p-}=-4.04V$。波形在峰后$0.2ms$后降至$0V$并保持稳定。波形图如附图三所示。理论给出
+\begin{equation}
+  u_R(0+)\rightarrow+\infty V;\; u_R(t)=0V,~t\in(0,0.5)
+\end{equation}
 \subsection{误差分析3}
+可见理论预测与实际相差较大，但也有一定的吻合段。这是因为函数信号发生器产生方波，实际上有一定的上升时间，因此斜率实际上不会达到狄拉克函数预测的正负无穷。
+同时示波器的时间取样有一定的区间，电压的读取范围也有一定区间，因此读出的上下峰值是较为不准的。基本波形图上暗示了电压可能趋向正无穷的趋势。因此可以认为在实验误差允许范围内，结果可以接受。
 \subsection{脉冲分压电路}
+实验测得的波形图如附图四所示。测得的输出稳定电压值为$u_o=1.00V$。理论计算所得为
+\begin{equation}
+  u_{oTheory}=\frac{R_2}{R_1+R_2}\times u_i=1V
+\end{equation}
+可见理论与实验测得值较为吻合。但实际图像上，输出电压在上峰值时表现出先下降后稳定的图像，而保持较好的稳定时需要将电容$C_2$校准至$0.014\mu F$，否则出现过补偿现象。
 \subsection{误差分析4}
-
+最终稳定值与理论符合得相当好，但实际波形有差异。这可能由两个原因造成，一个是电容箱的电容值可能不准，第二是电阻箱的电阻可能本身带有一定得容性，这也造成了如此得实验现象。实际观察输入电压，也有细微的先下降后平稳的现象，这应该是
+电阻带容性造成的。
 \section{实验总结}
 在本次实验中，我们利用示波器搭建与测量了RC一阶电路的响应电路、微分和积分电路以及脉冲分压电路
 虽然有一定的误差，但在实验设计允许范围内，和理论吻合得较好，成果较为令人满意。通过这次实验也学习到了
 一阶电路的一些特性，熟悉了时间常数有关的概念，锻炼了实验能力和误差分析能力。
+\newpage
 \section{实验思考题}
-balabalabala
-
-\begin{appendix}
-
-\section{代码示例}
-
-\begin{lstlisting}[caption={一段C代码},captionpos=b]
-#include <stdio.h>
-int main (int argc, char *argv[]){
-  printf("Hello world!");
-}
-\end{lstlisting}
-
-\section{表格示例}
-表 \ref{tab:tab1}与表 \ref{tab:tab2}展示了表格示例
-\begin{table}[!h!tbp]
-\caption{一个简单的表格}\label{tab:tab1}
-  \centering
-  \begin{tabular}{|l|c|c|}
-	\hline
-	功能          &WEB         &APP         \\ \hline
-	注册          &$\surd$     &$\surd$     \\ \hline
-	登录          &$\surd$     &$\surd$     \\ \hline
-	推送          &$\times$    &$\surd$     \\ \hline
-\end{tabular}
-\end{table}
-
-\begin{table}[!h!tbp]
-\caption{自定义表格}\label{tab:tab2}
-  \centering
-\begin{tabular*}{0.75\textwidth}{@{\extracolsep{\fill}}lcc}
-    \toprule
-    功能          &WEB         &APP         \\
-    \midrule
-    注册          &$\surd$     &$\surd$     \\
-    登录          &$\surd$     &$\surd$     \\
-    推送          &$\times$    &$\surd$     \\
-    \bottomrule
-\end{tabular*}
-\end{table}
-
-
-\section{图片示例}
-图 \ref{fig:logo}展示了一个图片示例。
-\begin{figure}[htbp]
-\centering
-\fbox{\includegraphics[width=0.5\linewidth]{logo}}
-\caption{blablabla}
-\label{fig:logo}
-\end{figure}
-
-\section{公式示例}
-式 (\ref{eqa:01})展示了一个公式的例子。
-\begin{equation}
-S_n = \frac{X_1 + X_2 + \cdots + X_n}{n}
-      = \frac{1}{n}\sum_{i}^{n} X_i
-\label{eqa:01}
-\end{equation}
-
-
-
-
-\end{appendix}
-
+\subsection{本次实验电路中，电阻$R_1$在电路中起何作用？}
+\textbf{答：}起负载作用。因为在实验中，函数信号发生器给出的信号特性是不准确的，需要用示波器测量经过二极管后的信号特性。而函数信号发生器存在内阻，所以开路和带负载时测量的结果也是不一样的。所以要在等效电源（信号函数发生器与二极管的串联）两端接一个负载，这样才能比较准确地测量出等效电源输出信号的特性。
+\subsection{本次实验中，能用毫伏表测量电阻$R_1$两端的矩形波电压么，为什么？}
+\textbf{答：}不能。万用表毫伏表可能是直流电压档或者交流电压档。如果用直流电压档，那么因为电压值一直在变化，而且频率对于直流档来说太大，因此无法测准；如果用交流电压档，那么万用表给出的是正弦交流电的有效值，但是$R_1$两端是矩形电压，因此也无法测准。
+\subsection{根据本次实验说明RC电路分别用作积分电路和微分电路必须具备的条件？}
+\textbf{答：}用作积分电路的条件：$t_p\ll \tau=RC$，也即电源电压变化时间远小于时间常数。用作积分电路的条件：$t_p\gg \tau=RC$，也即电源电压变化时间远大于时间常数。
+\subsection{脉冲分压器电路中，有两个贮能元件电容$C_1$和$C_2$，为何是一阶电路？}
+\textbf{答：}二阶电路的真正定义是：电压/电流满足的关系式是二阶常微分方程。这里虽然有两个电容，但由于电容满足的关系式为：$i_c=C\ddone{u_c}{t}$，所以电路方程最后一定还是一阶常微分方程，所以电路还是一阶电路。
 \end{document}
