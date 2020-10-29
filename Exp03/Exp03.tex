@@ -21,6 +21,7 @@
 \usepackage{enumitem}           %调整列举环境
 \usepackage{url}
 \usepackage{fontspec,xunicode}
+\usepackage{upgreek}
 \defaultfontfeatures{Mapping=tex-text} %如果没有它，会有一些 tex 特殊字符无法正常使用，比如连字符。
 
 \usepackage{graphicx}
@@ -196,6 +197,9 @@
   \end{tabular*}
 \end{table}
 
+%
+\newcommand\mr[1]{\mathrm{#1}}
+\newcommand\dd{\mathrm{d\,}}
 % =============================================
 % Part 2 Main document
 % =============================================
@@ -245,7 +249,7 @@
 \subsection{限幅电路}
 限幅电路，又称削波电路，是用来限制输出信号电压范围的电路，仅有上门限的称为上限幅
 电路，仅有下门限的称为下限幅电路，具有上下门限的限幅电路,称为双向限幅电路。其工作原理与整流电路相近，由于恒压源的存在，使得当输入电压加上恒压源一旦超出了二
-极管的导通范围，就会截止，因此具有限制幅度的功能。其电路与输出波形如图 \ref{fig:limiter}所示。二极管作理想处理，当输入正弦波时，当
+极管的导通范围，就会截止，因此具有限制幅度的功能。其电路与输出波形如图 \ref{fig:limiter}所示。二极管作理想处理，当输入正弦波时，输出波形最大值受到限制，相当于顶端被“削平”。
 \begin{figure}[htbp]
   \centering
   \fbox{\includegraphics[width=0.5\linewidth]{limiter}}
@@ -265,19 +269,152 @@
 
 
 \section{实验内容与步骤}
-\subsection{实验内容}
-	blablabla
-\subsection{实验步骤}
-	blablabla
+\subsection{实验一：整流滤波电路}
+\begin{figure}[H]
+ \centering
+ \includegraphics[width=5cm]{Exp1}
+ \caption{实验一电路图}
+ \label{fig:Exp1}
+\end{figure}
+如图\ref{fig:Exp1}所示为整流电路。用万用表的两个CH测量其输入和输出电压，再用万用表手动1V DCV档测量其平均值。
+\begin{figure}[H]
+ \centering
+ \includegraphics[width=5cm]{Exp1Con}
+ \caption{实验一（续）电路图}
+ \label{fig:Exp1Con}
+\end{figure}
+如图\ref{fig:Exp1Con}所示，在图\ref{fig:Exp1}基础上再并联一个电容$C=10\mathrm{\upmu F}$。用示波器测出其输入、输出电压，再用万用表ACV档测量其纹波电压。然后将电容值改为$C=100\mathrm{\upmu F}$，重复实验。
+\subsection{实验二：钳位电路}
+\begin{figure}[H]
+ \centering
+ \includegraphics[width=5cm]{Exp2}
+ \caption{实验二电路图}
+ \label{fig:Exp2}
+\end{figure}
+如图\ref{fig:Exp2}所示为钳位电路。用示波器测量其输入与输出电压。
+\subsection{实验三：限幅电路}
+\begin{figure}[H]
+ \centering
+ \includegraphics[width=5cm]{Exp3}
+ \caption{实验三电路图}
+ \label{fig:Exp3}
+\end{figure}
+如图\ref{fig:Exp3}所示为限幅电路。用示波器测量其输入与输出电压。再用示波器的$X - Y$模式测量其$v_i - v_o$曲线。
+\subsection{实验四：稳压电路}
+\begin{figure}[H]
+ \centering
+ \includegraphics[width=5cm]{Exp4}
+ \caption{实验四电路图}
+ \label{fig:Exp4}
+\end{figure}
+如图\ref{fig:Exp4}所示为稳压电路。用示波器测量其输入与输出电压。稳压管等效的交流小信号模型为一个小电阻，用万用表间接测量其等效电路电阻，同时稳压管在静态工作点有一电压降，因此可认为是一反向直流电压源。因此稳压管的等效电路模型是一个小电阻与一个反向直流电源串联。
 
 \section{实验数据处理与分析}
-\subsection{实验内容1}
-	blablabla
-\subsection{误差分析1}
-	blablabla
+实验所用的普通二极管导通压降为$V_D=0.5823\mr{V}$，稳压二极管的正向导通电压为$V_{DS}=0.7354\mr{V}$。
+\subsection{实验一：整流滤波电路}
+\begin{figure}[H]
+ \centering
+ \includegraphics[width=7cm]{Exp1i}
+ \caption{实验一输入波形}
+ \label{fig:Exp1i}
+\end{figure}
+在未接电容时，输入波形的高峰值为$V_H=2.36\mr{V}$，低峰值为$V_L=-2.50\mr{V}$，如图\ref{fig:Exp1i}所示。
+\begin{figure}[H]
+ \centering
+ \includegraphics[width=7cm]{Exp1o}
+ \caption{实验一输出波形}
+ \label{fig:Exp1o}
+\end{figure}
+在未接电容时，输出波形的高峰值为$V_H=1.73\mr{V}$，低值被削平，为$V_L=-0.03\mr{V}$，如图\ref{fig:Exp1o}。
+\par 理论上，峰值电压应为$V_{iH}-V_D=2.36-0.5823=1.778\mr{V}$，与实验值接近，比实验值略大。这可能是由于二极管存在电阻，所以存在分压作用分压作用，电阻实际分到的电压比输入电压略小一些。
+\par 万用表测得的平均值为$0.4328\mr{V}$。
+而理论给出的平均值为：
+\[ \bar{V_o}=\frac{1}{T}\int_0^TV_o(t)\dd{t}\approx0.318V_P=0.318\times1.73=0.55014\mr{V} \]
+\par 这个值比实验值大。分析其原因：万用表可能是测量若干个断点的值，并对对应时间内的电压作近似积分。而万用表的采样频率可能没有快到可以精确测量电压平均值，所以在用矩形分割法进行近似积分时有误差。
+\begin{figure}[H]
+ \centering
+ \includegraphics[width=10cm]{Exp1Cono1}
+ \caption{实验一（续）输出波形，$C=10\mr{\upmu F}$}
+ \label{fig:Exp1Cono1}
+\end{figure}
+在电容为$10\mr{\mu F}$时，输出波形如图\ref{fig:Exp1Cono1}所示。其中波纹高值为$V_H=1.445\mr{V}$，波纹低值为$V_L=1.043\mr{V}$。
+\par 万用表测量的平均值为$\widetilde{V_o}=0.1089\mr{V}$。
+\begin{figure}[H]
+ \centering
+ \includegraphics[width=10cm]{Exp1Cono2}
+ \caption{实验一（续）输出波形，$C=100\mr{\upmu F}$}
+ \label{fig:Exp1Cono2}
+\end{figure}
+在电容为$100\mr{\mu F}$时，输出波形如图\ref{fig:Exp1Cono2}所示。其中波纹高值为$V_H=1.323\mr{V}$，波纹低值为$V_L=1.285\mr{V}$。
+\par 万用表测量的平均值为$\widetilde{V_o}=7.158\mr{mV}$。
+\par 比较不同电容值下的结果，我们发现：如果提高电容，那么波纹高值会下降，波纹低值会上升，二者之间差距缩小，所以交流波纹电压减小。
+\par 分析其原因：若电容$C=100\mr{\upmu F}$，那么相较于$C=10\mr{\upmu F}$时，电容的阻抗更小了，与负载电阻的并联阻抗也变小了，分压能力减弱，所以波纹高值减小了；而此时电路的时间常数$\tau=RC$更大了，电路中电压的变化更为缓慢，于是第二次实验的波纹更小，因此波纹低值也更高，交流波纹电压更小。
+\subsection{实验二：钳位电路}
+\begin{figure}[H]
+ \centering
+ \includegraphics[width=7cm]{Exp2i}
+ \caption{实验二输入波形}
+ \label{fig:Exp2i}
+\end{figure}
+实验输入波形如图\ref{fig:Exp2i}所示。高峰值为$V_H=2.45\mr{V}$，低峰值为$V_L=-2.58\mr{V}$。
+\begin{figure}[H]
+ \centering
+ \includegraphics[width=7cm]{Exp2o}
+ \caption{实验二输出波形}
+ \label{fig:Exp2o}
+\end{figure}
+实验输出波形如图\ref{fig:Exp2o}所示。高峰值为$V_H=1.43\mr{V}$，低峰值为$V_L=-3.66\mr{V}$。
+\par 理论上，输出波形相对于输入波形向下平移了$E=1\mr{V}$，实际上波形的高峰和低峰分别向下平移了$2.45-1.43=1.02\mr{V}$和$-2.58-(-3.66)=1.08\mr{V}$，和理论值符合得比较好。
+\subsection{实验三：限幅电路}
+\begin{figure}[H]
+ \centering
+ \includegraphics[width=7cm]{Exp3i}
+ \caption{实验三输入波形}
+ \label{fig:Exp3i}
+\end{figure}
+实验输入波形如图\ref{fig:Exp3i}所示。高峰值为$V_H=2.42\mr{V}$，低峰值为$V_L=-2.50\mr{V}$。
+\begin{figure}[H]
+ \centering
+ \includegraphics[width=7cm]{Exp3o}
+ \caption{实验三输出波形}
+ \label{fig:Exp3o}
+\end{figure}
+实验输出波形如图\ref{fig:Exp3o}所示。高值被削平，为$V_H=1.59\mr{V}$，低峰值为$V_L=-2.65\mr{V}$。
+\par 被削平处的电压值应为电源电压加上二极管导通电压，即$1.00+0.5823=1.5823\mr{V}$，与实际值接近。
+\par 将示波器输出模式改为$x - y$模式，测量$v_o - v_i$曲线。
+\begin{figure}[H]
+ \centering
+ \includegraphics[width=6cm]{Exp3oxy}
+ \caption{实验三输出波形，$x - y$模式}
+ \label{fig:Exp3oxy}
+\end{figure}
+输出图像如图\ref{fig:Exp3oxy}所示。可见在$u_i$小于阈值电压$1.38375\mr{V}$时，$u_o$与$u_i$呈线性关系。若$u_i$大于阈值电压，那么$u_o$被限幅，$u_o$电压值不会继续上升，图线保持水平。
+\subsection{实验四：稳压电路}
+直流电压源$E=12\mr{V}$，接好电路连线再调整函数信号发生器的取值。在信号发生器显示有效值为$100\mr{mV_{rms}}$时，万用表实际测量的有效值为$94.81\mr{mV_{rms}}$。调整至万用表测量值为$100.06\mr{mV_{rms}}$时，函数信号发生器的标示有效值为$105.4\mr{mV_{rms}}$。
+\par 改变万用表表笔所接位置，测得稳压管的静态反向电压为$V_Z=4.25\mr{V_{rms}}$，$R_1$两端电压为$V_1=99.41\mr{mV_{rms}}$，负载电阻$R_L$两端电压为$V_L=0.302\mr{mV_{rms}}$。
+\par 由此计算：
+\[ I_1=\frac{V_1}{R_1}=\frac{99.41\mr{mV}}{1\mr{k}\Omega}=99.41\mr{\upmu A},~
+   I_L=\frac{V_L}{R_L}=\frac{0.302\mr{mV}}{2\mr{k}\Omega}=0.151\mr{\upmu A}.
+   \]
+\[
+  I_Z=I_1-I_L=99.41\mr{\upmu A},~r=\frac{V_L}{I_Z}=3.04\Omega.
+\]
+下面求其等效电压源电压。假设输入负极接地，假设等效电源静态电压为$V_Z$，那么依照节点的KCL可以写出电路的方程：
+\[ \frac{12-4.25}{1000}=\frac{4.25}{2000}+\frac{4.25-V_Z}{3.04} \]
+由此解得：
+\[ V_Z\approx4.233\mr{V}. \]
+由此可以画出其等效电路：
+\begin{figure}[H]
+ \centering
+ \includegraphics[width=8cm]{Exp4Circuit}
+ \caption{实验四等效电路图}
+ \label{fig:Exp4Circuit}
+\end{figure}
 
 \section{实验总结}
-blablabla
+本次实验着重于二极管的性质和应用。经过若干个二极管实验，我们对二极管的整流、钳位、限幅（削波）有了更深入的认识。同时我们亲手验证了稳压二极管的稳压作用，并用交流小信号模型去求其等效电路。
+\par 在任何规模的电路当中，二极管都是重要的组成成分，所以了解二极管的性质和常见用途，能有效地帮助我们理解复杂电路和自行设计电路。
+
 \section{实验思考题}
 \subsection{问题一}
 二极管，对直流量，它相当于一个电压源，而对交流量，它等效成一个小电阻，这句话对吗?稳压管有何特性?
@@ -299,68 +436,4 @@ blablabla
 
 具体地说：当负载$R_L$一定时，如果$V_i$增大，则$V_z$增大，由于稳压二极管动态电阻很小，干路的电流基本上被其捕获，因此$R_1$上的压降增大，最终$V_o$几乎不变。
 当$R_L$减小时，则干路路电流增大，因此干路压降增大，则$V_z$分压减小，最终$V_o$基本不变。反之亦然。
-
-\newpage
-\begin{appendix}
-
-\section{代码示例}
-
-\begin{lstlisting}[caption={一段C代码},captionpos=b]
-#include <stdio.h>
-int main (int argc, char *argv[]){
-  printf("Hello world!");
-}
-\end{lstlisting}
-
-\section{表格示例}
-表 \ref{tab:tab1}与表 \ref{tab:tab2}展示了表格示例
-\begin{table}[!h!tbp]
-\caption{一个简单的表格}\label{tab:tab1}
-  \centering
-  \begin{tabular}{|l|c|c|}
-	\hline
-	功能          &WEB         &APP         \\ \hline
-	注册          &$\surd$     &$\surd$     \\ \hline
-	登录          &$\surd$     &$\surd$     \\ \hline
-	推送          &$\times$    &$\surd$     \\ \hline
-\end{tabular}
-\end{table}
-
-\begin{table}[!h!tbp]
-\caption{自定义表格}\label{tab:tab2}
-  \centering
-\begin{tabular*}{0.75\textwidth}{@{\extracolsep{\fill}}lcc}
-    \toprule
-    功能          &WEB         &APP         \\
-    \midrule
-    注册          &$\surd$     &$\surd$     \\
-    登录          &$\surd$     &$\surd$     \\
-    推送          &$\times$    &$\surd$     \\
-    \bottomrule
-\end{tabular*}
-\end{table}
-
-
-\section{图片示例}
-图 \ref{fig:logo}展示了一个图片示例。
-\begin{figure}[htbp]
-\centering
-\fbox{\includegraphics[width=0.5\linewidth]{logo}}
-\caption{blablabla}
-\label{fig:logo}
-\end{figure}
-
-\section{公式示例}
-式 (\ref{eqa:01})展示了一个公式的例子。
-\begin{equation}
-S_n = \frac{X_1 + X_2 + \cdots + X_n}{n}
-      = \frac{1}{n}\sum_{i}^{n} X_i
-\label{eqa:01}
-\end{equation}
-
-
-
-
-\end{appendix}
-
 \end{document}
