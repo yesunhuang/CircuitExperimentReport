@@ -244,14 +244,89 @@
   \label{fig:BPF}
   \end{figure}
 
+\newpage
 \section{实验数据处理与分析}
 \subsection{实验内容1}
-	blablabla
-\subsection{误差分析1}
-	blablabla
+  实验所测得的幅频特性曲线如图 \ref{fig:LPFH}所示（以下特性图频率坐标均为对数坐标）。可见转移函数的模随着频率的增大而减小，符合低通
+  电路的特性，而实验测得的截止频率为$683Hz$。
+  
+  \begin{figure}[htbp]
+    \centering
+    \fbox{\includegraphics[width=0.5\linewidth]{LPFH.png}}
+    \caption{RC低通电路幅频特性}
+    \label{fig:LPFH}
+    \end{figure}
 
+  实验测得的相频曲线如图 \ref{fig:LPFPhi}所示。可见输出相角是滞后的，滞后值随着频率的增大而增大，当频率极大时逼近
+  $-90°$角。
+  \begin{figure}[htbp]
+    \centering
+    \fbox{\includegraphics[width=0.5\linewidth]{LPFPhi.png}}
+    \caption{RC低通电路相频特性}
+    \label{fig:LPFPhi}
+    \end{figure}
+
+  频率特性曲线基本与理论预测吻合。实验测得截止频率的波形图如附图一所示，可见相角的确是滞后的。
+  由波形图计算出的相角为：
+  \begin{equation}
+    |\Delta \phi|=46.7^\circ
+  \end{equation}
+  而由李萨如图像法计算出的相角差为$45.3^\circ$，可见有一定差异，这个支持了误差主要来源于读数误差的判断。
+\subsection{误差分析1}
+  理论给出的截止频率为：
+  \begin{equation}
+    f_c=\frac{1}{2\pi RC}\approx723Hz
+  \end{equation}
+  频率特性曲线基本与理论预测吻合，但可见，实验所测得的值与理论上仍有一定误差，相对误差为$5.53\%$，但实验上确定该频率值是通过观察毫伏表的有效值为$0.707V$给定的，从数据值中可以看出用波形法测出的值和李萨如测出的值也有一定差异，
+  本质上应该都是读数误差造成的。
+  实际上在一定区间内（包括723Hz），该值几乎都没有太大变化，毫伏表无法精确测出。因此在实验精度要求范围内，这个误差是可以接受的。同时结合相角判断，
+  此时测得的相角为$45.3^\circ$，相比理论值$45^\circ$偏大，若此处为精确读数，则预示着此时的频率值已偏大，这并不符合逻辑。因此，认为此处的误差主要来源于
+  毫伏表读数误差，而非原件值不准因素。同时，实际上测量时，输入电压有一定波动，需要不断校准（实验中当小于或大于一定值时才会重新校准），可见原始数据中A的值有一定波动，这里也会造成一定的误差。
+
+\subsection{实验内容2}
+实验测得的幅频曲线与相频曲线分别如图 \ref{fig:BPFH}和图 \ref{fig:BPFPhi}所示。 可见基本上符合带通电路的理论特征，在中心频率前，相角超前，随着频率增大而相角逐渐减小，同时转移函数的模增大，当超过中心频率后反之，实验测得
+的中心频率为$700Hz$，但实验上发现在$680-730Hz$区间，李萨如图像和毫伏表示数基本没有变化。
+\begin{figure}[htbp]
+  \centering
+  \fbox{\includegraphics[width=0.5\linewidth]{BPFH.png}}
+  \caption{RC带通电路幅频特性}
+  \label{fig:BPFH}
+  \end{figure}
+
+  \begin{figure}[htbp]
+    \centering
+    \fbox{\includegraphics[width=0.5\linewidth]{BPFPhi.png}}
+    \caption{RC带通电路相频特性}
+    \label{fig:BPFPhi}
+    \end{figure}
+同时实验中选取了$250Hz$与$2500Hz$下的输入输出波形进行观察，其波形图如附图二，三所示。
+可以计算出$250Hz$下有(直接利用波形图计算):
+\begin{equation}
+  |H(j\omega)|\approx0.276, |\Delta \phi|\approx42.3^\circ
+\end{equation}
+$2500Hz$下有：
+\begin{equation}
+  |H(j\omega)|\approx0.234, |\Delta \phi|\approx51.3^\circ
+\end{equation}
+\subsection{误差分析2}
+实验测得的频率特性曲线基本与理论预测吻合。理论给出的中心频率为:
+\begin{equation}
+  f_0=\frac{1}{2\pi RC}\approx723Hz
+\end{equation}
+可以得到相对误差为$3.33\%$。相比上一个实验内容有所下降。但实验上发现$680-730Hz$区间示数都没有太大变化，可以认为此处的
+误差主要是读数造成的。
+同时可以计算出$250Hz$下频率特性的理论值为
+\begin{equation}
+  |H(j\omega)|\approx0.254, |\Delta \phi|\approx40.3^\circ
+\end{equation}
+$2500Hz$下频率特性的理论值为
+\begin{equation}
+  |H(j\omega)|\approx0.229, |\Delta \phi|\approx46.56^\circ
+\end{equation}
+转移函数模的相对误差分别为$8.66\%$和$2.18\%$，可见都有一定的误差，但在实验允许内，是可以接受的，但相角上误差较大，这些误差来源于示波器读数。相比其李萨如配合毫伏表的方法，各有优势，李萨如方法在相角上更加准确。
 \section{实验总结}
-blablabla
+通过本次实验，熟悉了RC滤波网络的频率特性，研究了低通电路和带通电路的各种特性。虽然结果有一定误差，但仍然在实验要求范围内，总体上与理论预测的符合度比较好。
+频率特性曲线也与理论预测一致。但毫伏的测试电压有效值的方法不一定比示波器直接读出电压幅值好，并且示波器的在动态校准电压下无需改换接线，有一定优势。总体实验成果较为令人满意。
 \section{实验思考题}
 balabalabala
 
