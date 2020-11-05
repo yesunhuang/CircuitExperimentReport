@@ -23,6 +23,7 @@
 \usepackage{fontspec,xunicode}
 \defaultfontfeatures{Mapping=tex-text} %如果没有它，会有一些 tex 特殊字符无法正常使用，比如连字符。
 
+\usepackage{upgreek}
 \usepackage{graphicx}
 \graphicspath{{imgs/}}
 
@@ -325,71 +326,64 @@ $2500Hz$下频率特性的理论值为
 \end{equation}
 转移函数模的相对误差分别为$8.66\%$和$2.18\%$，可见都有一定的误差，但在实验允许内，是可以接受的，但相角上误差较大，这些误差来源于示波器读数。相比其李萨如配合毫伏表的方法，各有优势，李萨如方法在相角上更加准确。
 \section{实验总结}
-通过本次实验，熟悉了RC滤波网络的频率特性，研究了低通电路和带通电路的各种特性。虽然结果有一定误差，但仍然在实验要求范围内，总体上与理论预测的符合度比较好。
-频率特性曲线也与理论预测一致。但毫伏的测试电压有效值的方法不一定比示波器直接读出电压幅值好，并且示波器的在动态校准电压下无需改换接线，有一定优势。总体实验成果较为令人满意。
+通过本次实验，我们熟悉了RC滤波网络的频率特性，研究了低通电路和带通电路的各种特性。虽然结果有一定误差，但仍然在实验要求范围内，总体上与理论预测的符合度比较好。
+频率特性曲线也与理论预测一致。但毫伏的测试电压有效值的方法不一定比示波器直接读出电压幅值好，并且示波器的在动态校准电压下无需改换接线，有一定优势。总体实验成果令人较为满意。
 \section{实验思考题}
-balabalabala
-
-\begin{appendix}
-
-\section{代码示例}
-
-\begin{lstlisting}[caption={一段C代码},captionpos=b]
-#include <stdio.h>
-int main (int argc, char *argv[]){
-  printf("Hello world!");
-}
-\end{lstlisting}
-
-\section{表格示例}
-表 \ref{tab:tab1}与表 \ref{tab:tab2}展示了表格示例
-\begin{table}[!h!tbp]
-\caption{一个简单的表格}\label{tab:tab1}
-  \centering
-  \begin{tabular}{|l|c|c|}
-	\hline
-	功能          &WEB         &APP         \\ \hline
-	注册          &$\surd$     &$\surd$     \\ \hline
-	登录          &$\surd$     &$\surd$     \\ \hline
-	推送          &$\times$    &$\surd$     \\ \hline
-\end{tabular}
-\end{table}
-
-\begin{table}[!h!tbp]
-\caption{自定义表格}\label{tab:tab2}
-  \centering
-\begin{tabular*}{0.75\textwidth}{@{\extracolsep{\fill}}lcc}
-    \toprule
-    功能          &WEB         &APP         \\
-    \midrule
-    注册          &$\surd$     &$\surd$     \\
-    登录          &$\surd$     &$\surd$     \\
-    推送          &$\times$    &$\surd$     \\
-    \bottomrule
-\end{tabular*}
-\end{table}
-
-
-\section{图片示例}
-图 \ref{fig:logo}展示了一个图片示例。
-\begin{figure}[htbp]
-\centering
-\fbox{\includegraphics[width=0.5\linewidth]{logo}}
-\caption{blablabla}
-\label{fig:logo}
-\end{figure}
-
-\section{公式示例}
-式 (\ref{eqa:01})展示了一个公式的例子。
-\begin{equation}
-S_n = \frac{X_1 + X_2 + \cdots + X_n}{n}
-      = \frac{1}{n}\sum_{i}^{n} X_i
-\label{eqa:01}
-\end{equation}
-
-
-
-
-\end{appendix}
-
+\subsection{两个不同频率的正弦信号能否测量其相位，为什么？}
+\textbf{答：}不能。
+\par 不同频率的正弦信号，如果用时域模式，触发沿是CH1或CH2。因为两个信号频率不同，所以必然有一个信号的图像是在随着时间平移的，这就使得测量相位差变得困难，因为相位差一直在变化。
+\par 如果用X-Y模式，看李萨如图形，那么李萨如图形也是随着时间的变化而旋转变形的。在这种情况下椭圆的参数$A,~B$也难以测量。
+\par 简而言之，不同频率的正弦信号，其相位差本身就是随着时间变化的，所以示波器图像在变化，因此难以测准。
+\subsection{据你所知，测量频率、振幅和相位差有哪些方法？}
+\textbf{答：}
+\begin{enumerate}
+ \item \textbf{测量频率：}
+ \begin{enumerate}
+  \item 示波器电压图像上直接测量（手动或自动测量）。
+  \item 将信号与一已知频率信号混合，测量其拍的时间，从而可以推算出频率。
+  \item 将信号与一已知频率信号混合，测量其李萨如图形，与标准图像比对可知频率之比。
+  \item 文氏（Wien）电桥法：
+  电路图如下：
+  \begin{figure}[H]
+   \centering
+   \includegraphics{WienBridge}
+   \caption{\kaishu 文氏电桥电路图}
+  \end{figure}
+  电桥平衡时，有：
+  \[ \left( R_1+\frac{1}{j\omega_xC_1}\right )R_4 = 
+     \left( \frac{1}{1/R_2+j\omega_xC_2} \right)R_3\]
+  由此可以解得频率。其实可以设计很多种用电容和电感构造的电路去解频率，这只是其中的典型例子。
+  \item 计数法。通过整流、放大等操作，将正弦信号的每个峰化为近似脉冲的信号，然后用芯片对脉冲频率进行计数，即可推知正弦信号的频率。
+ \end{enumerate}
+ \item \textbf{测量振幅：}
+ \begin{enumerate}
+  \item 示波器电压图像直接测量（手动或自动测量）。
+  \item 万用表测量有效值后推算振幅。
+  \item 毫伏表测量有效值后推算振幅。
+ \end{enumerate}
+ \item \textbf{测量相位差：}
+ \begin{enumerate}
+  \item 示波器上直接测出两图像的时间差，从而得知相位差。
+  \item 将两个图线分别作为X-Y轴，作出李萨如图形，由此计算其相位差。
+ \end{enumerate}
+\end{enumerate}
+\subsection{理论证明公式：$\theta=\sin^{-1}\frac{B}{A}$}
+假设$x$方向和$y$方向的电压表达式为：
+\[U_x=U_a\cos(\omega t+\phi_1),~U_a>0\]
+\[U_y=U_a\cos(\omega t+\phi_2),~U_b>0\]
+\par 先计算$A$。$\frac{A}{2}$的物理含义是：$x$方向电压取到的最大值，也就是$U_a$。
+\par 再计算$B$。$\frac{B}{2}$是在$y$方向电压为0时$x$方向电压的取值绝对值，由此计算。
+当$y$向电压为0时：
+\[ \omega t+\phi_2 = k\uppi+\frac{\uppi}{2} \]
+\[ \omega t = k\uppi+\frac{\uppi}{2}-\phi_2 \]
+再代入$x$向电压：
+\[ U_x=U_a\cos(\omega t+\phi_1)
+=U_a\cos(k\uppi+\frac{\uppi}{2}+\phi_1-\phi_2)
+=\pm U_a\sin(\phi_1-\phi_2) \]
+所以：
+\[ \frac{B}{A} = \frac{U_a\sin(\phi_1-\phi_2)}{U_a}=\sin(\phi_1-\phi_2) \]
+\[ \phi_1-\phi_2 = \sin^{-1}\frac{B}{A} \]
+证毕。
+\subsection{根据本次实验结果，总结选频电路的作用}
+选频电路存在一个共振频率。当频率等于共振频率时，放大系数最大，而且相移为0。所以如果在电路的输入端输入一个多频率混合的信号，那么只有频率在共振范围量级内的信号才能得到比较大的放大系数，而其它的高频低频信号，其放大系数都很小，于是相当于对应频率波形在输出中被滤去了，达到了选频的目的。
 \end{document}
