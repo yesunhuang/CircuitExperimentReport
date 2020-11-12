@@ -294,9 +294,9 @@
   下面理论计算其下截止频率，此时耦合电容不可忽略(参考模拟电路中的算法),应有两个转折频率:
   \begin{equation}
     \begin{aligned}
-     C_1=\frac{C_1C_E}{(1+\beta)C_1+C_E}=0.3019\mu F\\
-     f_{L1}=\frac{1}{2\pi C_1(R_S+r_{be})}\approx 233Hz\\
-     f_{L2}=\frac{1}{2\pi C_2(R_c+R_L)}\approx 3.316Hz
+     C_1&=\frac{C_1C_E}{(1+\beta)C_1+C_E}=0.3019\mu F\\
+     f_{L1}&=\frac{1}{2\pi C_1(R_S+r_{be})}\approx 233Hz\\
+     f_{L2}&=\frac{1}{2\pi C_2(R_c+R_L)}\approx 3.316Hz
     \end{aligned}
   \end{equation}
   由于两者相差四倍以上，取$f_{L1}=233Hz$为下限频率，实验实际测得为$328Hz$，相对误差为$41\%$，误差相当大，但此处的理论计算有大量的近似
