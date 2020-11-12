@@ -244,12 +244,75 @@
 记录$f_H,f_L$。
 \section{实验数据处理与分析}
 \subsection{实验内容1}
-	blablabla
+	实验测得的静态工作点参数为$U_B=3.019V,U_{CE}=4.862V, I_C=2.000mA$。
 \subsection{误差分析1}
-	blablabla
+  采用一般的射级偏置电路分析方法，取$U_{BE},R_{B2}$为测量值，所有原件标记值认为四位有效数字真值，有
+  \begin{equation}
+    \begin{aligned}
+      U_{BQ}&\approx V_{CC}\frac{R_B1}{R_B1+R_B2}=3.215V\\
+      I_{CQ}&\approx I_{EQ}\approx\frac{V_{BQ}-V_{BEQ}}{R_e}=2.163mA\\
+      U_{CEQ}&=V_{CC}-I_{CQ}(R_e+R_c)=4.2132V
+    \end{aligned}
+  \end{equation}
+  则由此可以计算出三者的相对误差分别为$\left |\frac{\Delta U_B}{U_{BQ}}\right |=6\%,\left |\frac{\Delta I_C}{I_{CQ}}\right |=8\%,\left |\frac{\Delta U_{CE}}{U_{CEQ}}\right |=15\%$。
+  由此可见，静态工作点误差普遍较大，但在实验精度范围内可以接受，误差主要来自于两个方面:
+  \begin{enumerate}
+    \item 万用表测量的精度有限，接线时存在接触电阻，导致存在测量误差；
+    \item 原件真实值与标记值存在差异，同时在理论计算中存在一定的近似，因此计算所得到的理论值可能有较大偏差。
+  \end{enumerate}
+  因此，此次的测量结果还是认为是符合要求的。
+  \subsection{实验内容2}
+  实验所测得的电压放大倍数在有负载和负载断路时的值分别为$A_{vo}=-148,A_{vL}=-70$。相位从示波器上观察，在精度范围内，都是比较严格的反向，负载断路时波形图如附图所示。
+  \subsection{误差分析2}
+  同样，静态工作点值采用实验内容1中测量所得的值，$\beta=150,r_b=300\Omega$，由此计算增益系数如下:
+  \begin{equation}
+    \begin{aligned}
+      r_{bet}&=r_{b}+(1+\beta) \frac{26(mV)}{I_E(mA)}=2.263k\Omega\\
+      A_{vot}&=\frac{-\beta R_{c}}{r_{be}}=-159.0\\
+      A_{vLt}&=\frac{-\beta R_{c}\parallel R_{L}}{r_{be}}=-79.54
+    \end{aligned}
+  \end{equation}
+  由此可以计算出相对误差分别为$\left |\frac{\Delta A_{vo}}{A_{vot}}\right |=7\%,\left |\frac{\Delta A_{vL}}{A_{vLt}}\right |=12\%$。可见误差仍然是比较大，即使在计算时采用了
+  实验测得的静态工作点值，原因在于小信号模型本身就是一种近似处理，同时原件的标记值可能有一定的误差。还注意到波形时，实际上上下波形并不对称，这也是由于小信号模型本身属于一种近似处理导致的。
+  还可以观察到，空载和加了负载时的电压放大系数理论上应为严格的两倍关系，但测量出的结果并不如此，可能出现了一定的信号失真，可能涉及到耦合电容对其的作用，在此处的理论计算也没有考虑进去，因此，这样的处理和测量获得的值还是可以认为是合理的。
 
+  \subsection{实验内容3}
+  实验测量得到的输入和输出电阻分别为$R_i=2.48k\Omega,R_o=2.43k\Omega$。
+  \subsection{误差分析3}
+  采用实验测得的静态工作点值，计算得到的输入输出电阻如下:
+  \begin{equation}
+    \begin{aligned}
+      R_{it}&=R_{B1}\parallel R_{B2}\parallel r_{be}=2.00k\Omega\\
+      R_{ot}&\approx R_{c}=2.40k\Omega
+    \end{aligned}
+  \end{equation}
+  相对误差分别为$\left |\frac{\Delta R_{i}}{R_{it}}\right |=24\%,\left |\frac{\Delta R_{o}}{R_{ot}}\right |=1\%$。可见输入电阻的测量误差惊人得大，而输出电阻却惊人的小。对比差异，考虑到$C_e$对输入电阻的计算影响较大，而对输出电阻计算的影响较小，
+  推测是由于计算时忽略了$C_e$带来的误差，小信号模型应本身存在一定的近似误差。而$R_{o}$符合得比较好，误差应该是主要由于忽略了$r_{ce}$造成的，同时也有不可忽视的测量误差。
+  \subsection{实验内容4}
+  实验测量得到的截止频率分别为$f_L=328Hz,f_H=840Hz$，通频带为$328-840Hz$
+  \subsection{误差分析4}
+  下面理论计算其下截止频率，此时耦合电容不可忽略(参考模拟电路中的算法),应有两个转折频率:
+  \begin{equation}
+    \begin{aligned}
+     C_1=\frac{C_1C_E}{(1+\beta)C_1+C_E}=0.3019\mu F\\
+     f_{L1}=\frac{1}{2\pi C_1(R_S+r_{be})}\approx 233Hz\\
+     f_{L2}=\frac{1}{2\pi C_2(R_c+R_L)}\approx 3.316Hz
+    \end{aligned}
+  \end{equation}
+  由于两者相差四倍以上，取$f_{L1}=233Hz$为下限频率，实验实际测得为$328Hz$，相对误差为$41\%$，误差相当大，但此处的理论计算有大量的近似
+  处理，导致实际计算出的值比较不精确，因此可以接受。
+  高频计算估计如下：
+  \begin{equation}
+    \begin{aligned}
+      R&\approx r_{be'}\parallel(r_{bb'})=260\Omega\\
+      C&=C_{b'e}+(1+g_m R_L')C_{b'c}\approx 1.03 nF\\
+      f_H&=\frac{1}{2\pi RC}=594kHz
+    \end{aligned}
+  \end{equation}
+  此处的相对误差也非常大，但三极管的具体参数其实并不明，此处采用的参数基本上是估计值，因此数量级是吻合的，可以认为数据没有问题。
 \section{实验总结}
-blablabla
+本次实验用过理论与测量结合，分析了分压式共射极电路的静态工作点，放大系数以及频率响应，尽管理论与实验测量所得结果误差较大，但仍在实验精度可以接受的范围内，
+因此，此次的测量结果还是认为是符合要求的。同时学习到了三极管的小信号分析方法，以及高频响应模型的相关原理，获益匪浅，可以认为本次实验结果较为令人满意。
 \section{实验思考题}
 balabalabala
 
