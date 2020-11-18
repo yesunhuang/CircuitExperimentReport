@@ -314,68 +314,20 @@
 本次实验用过理论与测量结合，分析了分压式共射极电路的静态工作点，放大系数以及频率响应，尽管理论与实验测量所得结果误差较大，但仍在实验精度可以接受的范围内，
 因此，此次的测量结果还是认为是符合要求的。同时学习到了三极管的小信号分析方法，以及高频响应模型的相关原理，获益匪浅，可以认为本次实验结果较为令人满意。
 \section{实验思考题}
-balabalabala
+\subsection{加入输入信号时，输出波形会出现哪几种失真？分别是什么原因引起的？}
+\textbf{答：}
+\begin{enumerate}
+ \item 截止失真。因为静态工作点的电流太小， $I_{BQ}$ 太小， $V_{CEQ}$ 太大。在此基础上加上一个不太小的正弦信号，有可能使 $i_B$ 接近 0 而进入截止区。此时的输出波形，会有一部分被直接“削平”。
+ \item 饱和失真。 因为静态工作点的电流太大， $I_{CQ}$ 只是刚好能满足 $I_{CQ}\beta I_{BQ}$ 的关系。在此基础上加一个不太小的正弦信号，有可能使集电结不再反偏，此时 $i_C<\beta i_B$ ，晶体管工作在饱和区，输出波形中有一部分会的会“波动减小”。
+ \item 截止失真和饱和失真都有。当正弦信号太大时，在正弦信号取到正值和负值时，工作点分别被移到了饱和区和截止区，所以输出信号既有饱和失真，也有截止失真。
+\end{enumerate}
 
-\begin{appendix}
+\subsection{调整静态工作点时， $R_{B2}$ 是 $10\mathrm{k}$ 电阻与电位器 $R_W$ 相串联，而不能直接使用电位器，为什么？}
+\textbf{答：}如果直接使用电位器，那么在调整旋钮的时候， $R_{B2}$ 有可能会出现很小的值。在这种情况下，由于分压原理， $V_{BQ}$ 变得很接近 $V_{CC}$ ，甚至远高于 $V_{CQ}$ 。那么此时晶体管就处于深度饱和状态，而不能正常放大。
+\par 如果静态工作点就处于饱和状态，正弦信号又很小，使总信号不可能跳出饱和区时，因为工作点变化不大，输出的信号波形看起来不会有什么异样。但是此时放大系数比理论计算的放大工作区工作系数要小，从而影响实验结果。
+\par 为了防止晶体管工作在饱和区而又不容易察觉，要用一个比 $R_C$ 大的电阻与电位器相串联。这样总可以使得集电结处于反偏状态，晶体管处于放大状态。
 
-\section{代码示例}
-
-\begin{lstlisting}[caption={一段C代码},captionpos=b]
-#include <stdio.h>
-int main (int argc, char *argv[]){
-  printf("Hello world!");
-}
-\end{lstlisting}
-
-\section{表格示例}
-表 \ref{tab:tab1}与表 \ref{tab:tab2}展示了表格示例
-\begin{table}[!h!tbp]
-\caption{一个简单的表格}\label{tab:tab1}
-  \centering
-  \begin{tabular}{|l|c|c|}
-	\hline
-	功能          &WEB         &APP         \\ \hline
-	注册          &$\surd$     &$\surd$     \\ \hline
-	登录          &$\surd$     &$\surd$     \\ \hline
-	推送          &$\times$    &$\surd$     \\ \hline
-\end{tabular}
-\end{table}
-
-\begin{table}[!h!tbp]
-\caption{自定义表格}\label{tab:tab2}
-  \centering
-\begin{tabular*}{0.75\textwidth}{@{\extracolsep{\fill}}lcc}
-    \toprule
-    功能          &WEB         &APP         \\
-    \midrule
-    注册          &$\surd$     &$\surd$     \\
-    登录          &$\surd$     &$\surd$     \\
-    推送          &$\times$    &$\surd$     \\
-    \bottomrule
-\end{tabular*}
-\end{table}
-
-
-\section{图片示例}
-图 \ref{fig:logo}展示了一个图片示例。
-\begin{figure}[htbp]
-\centering
-\fbox{\includegraphics[width=0.5\linewidth]{logo}}
-\caption{blablabla}
-\label{fig:logo}
-\end{figure}
-
-\section{公式示例}
-式 (\ref{eqa:01})展示了一个公式的例子。
-\begin{equation}
-S_n = \frac{X_1 + X_2 + \cdots + X_n}{n}
-      = \frac{1}{n}\sum_{i}^{n} X_i
-\label{eqa:01}
-\end{equation}
-
-
-
-
-\end{appendix}
+\subsection{对于本次的单管放大电路，实现放大的条件是？}
+\textbf{答：}集电结处于反偏状态（$v_{CQ}>v_{BQ}$），且发射结处于放大状态（$v_{BEQ}=0.7\mathrm{V}$）
 
 \end{document}
