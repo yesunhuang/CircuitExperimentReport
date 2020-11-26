@@ -231,7 +231,7 @@
 \begin{figure}[htbp]
   \centering
   \fbox{\includegraphics[width=0.5\linewidth]{sStatic.png}}
-  \caption{典型差动放大器静态工作点测量示意图}
+  \caption{恒流源差动放大器静态工作点测量示意图}
   \label{fig:sStatic}
   \end{figure}
 \begin{enumerate}
@@ -244,9 +244,140 @@
 
 \section{实验数据处理与分析}
 \subsection{实验内容1}
-	blablabla
+  实验测得的静态工作点数据如表 \ref{tab:nSTab}所示。可见得到的数据都对称点的值都较为接近，比较理想。
+  \begin{table}[!h!tbp]
+    \caption{典型差动放大器静态工作点数据}\label{tab:nSTab}
+      \centering
+      \begin{tabular}{|l|c|c|c|c|c|c|}
+      \hline
+      数据 &$V_{C_1}$&$V_{C_2}$&$V_{E_1}$&$V_{E_2}$&$V_{B_1}$&$V_{B_2}$         \\ \hline
+      值   &$6.185V$&$6.187V$&$-0.638V$&$-0.643V$&$-13.76mV$&$-15.40mV$     \\ \hline
+    \end{tabular}
+    \end{table}
 \subsection{误差分析1}
-	blablabla
+  上述静态工作点数据，理论上对称点应完全一致，但由于实验误差，无法做到。但保证了相差小于$20mV$，从原理上可以接受，下面理论计算
+  静态工作点数值。计算中采用值为$\beta=150,r_{bb'}=300\Omega,U_{BE}=0.7V$
+  \begin{equation}
+    \begin{aligned}
+      I_{B}&=\frac{-U_{EE}-U_{BE}}{R_{B_1}+2(1+\beta)R_E+(1+\beta)\frac{R_{W_1}}{2}}=3.74\times10^{-3}mA\\
+      I_{C}&=\beta I_{B}=0.561mA\\
+      U_{CE}&=U_{CC}+U_{EE}-I_CR_C-2I_CR_E-I_C\frac{R_{W_1}}{2}=7.14V\\
+      U_C&=U_CC-I_CR_C=6.39V\\
+      U_E&=U_C-U_{CE}=-0.75V\\
+      U_B&=U_E+U_{BE}=-0.05V\\
+      r_{be}&=r_{bb'}+\frac{26mV}{I_B(mA)}=7.25k\Omega
+    \end{aligned}
+  \end{equation}
+  由此可以计算出分别的相对误差(对称点取平均值)为:
+  \begin{equation}
+    \begin{aligned}
+      \left |\frac{\Delta U_C}{U_C}\right |&=3.2\%\\
+      \left |\frac{\Delta U_E}{U_E}\right |&=14\%\\
+      \left |\frac{\Delta U_B}{U_B}\right |&=71\%
+    \end{aligned}
+  \end{equation}
+
+  可见，除$U_C$值外，其他静态工作点值基本上只有数量级正确。这主要是因为另外两个点值基本上在$1mV$范围，因此
+毫伏表的测量相当不精确造成的。但$U_C$的误差较小，说明了实验与理论基本上还是对应的。同时理论中采用了大量的近似，并且所选取
+的参数值可能也与实际由偏差，因此这样的误差可以接受。实际上，对称点的电压值难以调整至一致也说明了实验的电压误差基本上是在$20mV$这个数量级的。
+\subsection{实验内容2}
+实验中测量得到的数据如表 \ref{tab:ndTab}所示。可见在此精度范围下，单端差模输出的有效值的绝对值基本一致。其波形图如附图1所示。可见两端的差模输出信号的反向的。
+\begin{table}[!h!tbp]
+  \caption{典型差动放大器差模输出数据}\label{tab:ndTab}
+    \centering
+    \begin{tabular}{|l|c|c|c|c|}
+    \hline
+    数据 &$V_{S_1}$&$V_{od_1}$&$V_{od_2}$&$V_{od}$         \\ \hline
+    值   &$19.92mV$&$-808mV$&$+808mV$&$-1.610V$     \\ \hline
+  \end{tabular}
+  \end{table}
+由此可以计算出差模信号增益为:
+\begin{equation}
+  \begin{aligned}
+    \left |A_{ods}\right |=40.6\\
+    \left |A_{od}\right |=80.8
+  \end{aligned}
+\end{equation}
+\subsection{误差分析2}
+可见实际上$v_{od}$的测量值并不完全等于$v_{od1}-V_{od2}$，但实际上这就是毫伏表读数误差造成的。
+为计算理论值，画出单边小信号等效电路如图 \ref{fig:ndSmallSignal}所示。($R_b$与$R_w$未画出，认为负载$R_L\rightarrow\infty$)
+\begin{figure}[htbp]
+  \centering
+  \fbox{\includegraphics[width=0.5\linewidth]{ndSmallSignal.png}}
+  \caption{典型差动放大器差模输出单边小信号模型}
+  \label{fig:ndSmallSignal}
+  \end{figure}
+则可以求出输出参数为:
+\begin{equation}
+  \begin{aligned}
+    \left | A_{vd}\right |&=\frac{\beta R_C\parallel\frac{R_L}{2}}{R_{B_1}+r_{be}+(1+\beta)\frac{R_{W_1}}{2}}=70.0\\
+    \left | A_{vds}\right |&=\left |\frac{A_{vd}}{2}\right |=35.0
+  \end{aligned}
+\end{equation}
+则可求出相对误差为:
+\begin{equation}
+  \begin{aligned}
+    \left |\frac{\Delta A_{vd}}{A_{vd}}\right |&=15\%\\
+      \left |\frac{\Delta A_{vds}}{A_{vds}}\right |&=16\%\\
+  \end{aligned}
+\end{equation}
+首先，可见差模双端输出放大倍数并不是严格的单端输出的两倍。同时测量值与理论值偏差较大，推测是使用计算的$\beta$与$r_{bb'}$不准所导致的。
+这在静态工作点时已有体现，这个误差经过放大变得更加大。同时使用的元件也有一定的误差，小信号分析本身也具有一定误差，并未考虑频率响应。
+\subsection{实验内容3}
+实验测得的共模输出数据如表 \ref{tab:ncTab}所示。可见共模输出电压较小。
+
+\begin{table}[!h!tbp]
+  \caption{典型差动放大器共模输出数据}\label{tab:ncTab}
+    \centering
+    \begin{tabular}{|l|c|c|c|c|}
+    \hline
+    数据 &$U_{i}$&$U_{oc_1}$&$U_{oc_2}$&$U_{oc}$         \\ \hline
+    值   &$90.1mV$&$-43.9mV$&$-46.8mV$&$1.610mV$     \\ \hline
+  \end{tabular}
+  \end{table}
+则可以计算出共模电压增益为(单端输出时取平均值):
+\begin{equation}
+  \begin{aligned}
+    \left | A_{ucs}\right |&=0.503\\
+    \left | A_{ucs}\right |&=0.0306
+  \end{aligned}
+\end{equation}
+结合上一实验内容，可以算出差模抑制比为:
+\begin{equation}
+  \begin{aligned}
+    K_{CMRs}&=80.7\\
+    K_{CMR}&=2.64\times10^{3}
+  \end{aligned}
+\end{equation}
+\subsection{误差分析3}
+同样有，单端输出和双端输出电压值并不完全匹配的问题。
+单端输出时半边小信号模型如图\ref{fig:ncSmallSignal}所示。($R_b$与$R_w$未画出，认为负载$R_L\rightarrow\infty$)
+\begin{figure}[htbp]
+  \centering
+  \fbox{\includegraphics[width=0.5\linewidth]{ncSmallSignal.png}}
+  \caption{典型差动放大器共模输出单边小信号模型}
+  \label{fig:ncSmallSignal}
+  \end{figure}
+则可以求出共模输出参数以及结合上一内容模型可以算出差模抑制比为
+\begin{equation}
+  \begin{aligned}
+    \left | A_{vcs}\right |\approx\frac{R_c\parallel R_L}{2R_E}&=0.500
+    \left | A_{vc}\right |&=0.00
+    K_{CMRs}&=\left |\frac{A_{vds}}{A_{vcs}}\right |=70.0\\
+    K_{CMR}&=\infty
+  \end{aligned}
+\end{equation}
+可见，双端输出时的抑制比并不可能做到理想的正无穷程度，共模输出增益也不可能是0，但前者也非常大，后者也相当小，比较符合理论预测。
+其他量的相对误差为:
+\begin{equation}
+  \begin{aligned}
+      \left |\frac{\Delta A_{cds}}{A_{cds}}\right |&=0.6\%\\
+      \left |\frac{\Delta K_{CMRs}}{K_{CMRs}}\right |&=15\%
+  \end{aligned}
+\end{equation}
+可见，共模单端输出的相对误差意外得小，这是因为其计算时几乎没有用到三极管的预设参数。侧面证明，计算误差来源可能主要是三极管的参数不准。
+单端共模抑制比的误差仍较大，原因如前所述。
+
 
 \section{实验总结}
 blablabla
