@@ -243,7 +243,7 @@
 \end{enumerate}
 
 \section{实验数据处理与分析}
-\subsection{实验内容1}
+\subsection{实验内容1.1}
   实验测得的静态工作点数据如表 \ref{tab:nSTab}所示。可见得到的数据都对称点的值都较为接近，比较理想。
   \begin{table}[!h!tbp]
     \caption{典型差动放大器静态工作点数据}\label{tab:nSTab}
@@ -254,7 +254,7 @@
       值   &$6.185V$&$6.187V$&$-0.638V$&$-0.643V$&$-13.76mV$&$-15.40mV$     \\ \hline
     \end{tabular}
     \end{table}
-\subsection{误差分析1}
+\subsection{误差分析1.1}
   上述静态工作点数据，理论上对称点应完全一致，但由于实验误差，无法做到。但保证了相差小于$20mV$，从原理上可以接受，下面理论计算
   静态工作点数值。计算中采用值为$\beta=150,r_{bb'}=300\Omega,U_{BE}=0.7V$
   \begin{equation}
@@ -280,7 +280,7 @@
   可见，除$U_C$值外，其他静态工作点值基本上只有数量级正确。这主要是因为另外两个点值基本上在$1mV$范围，因此
 毫伏表的测量相当不精确造成的。但$U_C$的误差较小，说明了实验与理论基本上还是对应的。同时理论中采用了大量的近似，并且所选取
 的参数值可能也与实际由偏差，因此这样的误差可以接受。实际上，对称点的电压值难以调整至一致也说明了实验的电压误差基本上是在$20mV$这个数量级的。
-\subsection{实验内容2}
+\subsection{实验内容1.2}
 实验中测量得到的数据如表 \ref{tab:ndTab}所示。可见在此精度范围下，单端差模输出的有效值的绝对值基本一致。其波形图如附图1所示。可见两端的差模输出信号的反向的。
 \begin{table}[!h!tbp]
   \caption{典型差动放大器差模输出数据}\label{tab:ndTab}
@@ -298,7 +298,7 @@
     \left |A_{od}\right |=80.8
   \end{aligned}
 \end{equation}
-\subsection{误差分析2}
+\subsection{误差分析1.2}
 可见实际上$v_{od}$的测量值并不完全等于$v_{od1}-V_{od2}$，但实际上这就是毫伏表读数误差造成的。
 为计算理论值，画出单边小信号等效电路如图 \ref{fig:ndSmallSignal}所示。($R_b$与$R_w$未画出，认为负载$R_L\rightarrow\infty$)
 \begin{figure}[htbp]
@@ -323,8 +323,8 @@
 \end{equation}
 首先，可见差模双端输出放大倍数并不是严格的单端输出的两倍。同时测量值与理论值偏差较大，推测是使用计算的$\beta$与$r_{bb'}$不准所导致的。
 这在静态工作点时已有体现，这个误差经过放大变得更加大。同时使用的元件也有一定的误差，小信号分析本身也具有一定误差，并未考虑频率响应。
-\subsection{实验内容3}
-实验测得的共模输出数据如表 \ref{tab:ncTab}所示。可见共模输出电压较小。
+\subsection{实验内容1.3}
+实验测得的共模输出数据如表 \ref{tab:ncTab}所示。而输出波形如附图2所示。可见共模输出电压较小。
 
 \begin{table}[!h!tbp]
   \caption{典型差动放大器共模输出数据}\label{tab:ncTab}
@@ -339,7 +339,7 @@
 \begin{equation}
   \begin{aligned}
     \left | A_{ucs}\right |&=0.503\\
-    \left | A_{ucs}\right |&=0.0306
+    \left | A_{uc}\right |&=0.0306
   \end{aligned}
 \end{equation}
 结合上一实验内容，可以算出差模抑制比为:
@@ -349,7 +349,7 @@
     K_{CMR}&=2.64\times10^{3}
   \end{aligned}
 \end{equation}
-\subsection{误差分析3}
+\subsection{误差分析1.3}
 同样有，单端输出和双端输出电压值并不完全匹配的问题。
 单端输出时半边小信号模型如图\ref{fig:ncSmallSignal}所示。($R_b$与$R_w$未画出，认为负载$R_L\rightarrow\infty$)
 \begin{figure}[htbp]
@@ -378,9 +378,123 @@
 可见，共模单端输出的相对误差意外得小，这是因为其计算时几乎没有用到三极管的预设参数。侧面证明，计算误差来源可能主要是三极管的参数不准。
 单端共模抑制比的误差仍较大，原因如前所述。
 
+\subsection{实验内容2.1}
+实验测得的静态工作点数据如表 \ref{tab:sSTab}所示。可见得到的数据都对称点的值都较为接近，比较理想。
+  \begin{table}[!h!tbp]
+    \caption{恒流源差动放大器静态工作点数据}\label{tab:sSTab}
+      \centering
+      \begin{tabular}{|l|c|c|c|c|c|c|c|}
+      \hline
+      数据 &$V_{C_1}$&$V_{C_2}$&$V_{E_1}$&$V_{E_2}$&$V_{B_1}$&$V_{B_2}$&$R_{W2}$         \\ \hline
+      值   &$6.915V$&$6.909V$&$-0.630V$&$-0.635V$&$-11.98mV$&$-13.45mV$&$4.14k\Omega$     \\ \hline
+    \end{tabular}
+    \end{table}
+可见，数值上的对称性仍有缺陷。
+\subsection{误差分析2.1}
+下面理论计算静态工作点值，有：
+\begin{equation}
+  \begin{aligned}
+    I_C=I_0/2=0.500 mA\\
+    U_C=U_CC-I_CR_C=7.00V\\
+    r_{be}=r_{bb'}+\beta\frac{26mV}{I_C}=8.10k\Omega\\
+    U_{B}=-I_bR_B=-0.0227V\\
+    U_{E}=U_{B}-U_{BE}=-0.723V
+  \end{aligned}
+\end{equation}
+则可以分别计算出相对误差:
+\begin{equation}
+  \begin{aligned}
+    \left |\frac{\Delta U_C}{U_C}\right |&=1.2\%\\
+    \left |\frac{\Delta U_E}{U_E}\right |&=13\%\\
+    \left |\frac{\Delta U_B}{U_B}\right |&=44\%
+  \end{aligned}
+\end{equation}
+相对典型差分放大器而言，相对误差有所下降,因为此时理论计算的依赖主要跟$I_0$有关，而其为实验调制出来的，从这里可以猜测误差来源于参数$U_{BE}$的贡献可能最大。
+基本上精度还能接受，$U_C$误差比较小。
+\subsection{实验内容2.2}
+实验中测量得到的数据如表 \ref{tab:sdTab}所示。可见在此精度范围下，单端差模输出的有效值的绝对值基本一致。其波形图如附图1所示。可见两端的差模输出信号的反向的。
+\begin{table}[!h!tbp]
+  \caption{恒流源差动放大器差模输出数据}\label{tab:sdTab}
+    \centering
+    \begin{tabular}{|l|c|c|c|c|}
+    \hline
+    数据 &$V_{S_1}$&$V_{od_1}$&$V_{od_2}$&$V_{od}$         \\ \hline
+    值   &$19.85mV$&$-760mV$&$+767mV$&$-1.52V$     \\ \hline
+  \end{tabular}
+  \end{table}
+  可见对称度较典型的低，但$V_{od}$的值与单端输出的值匹配较好。
+  \begin{equation}
+    \begin{aligned}
+      \left |A_{ods}\right |=38.5\\
+      \left |A_{od}\right |=76.9
+    \end{aligned}
+  \end{equation}
+\subsection{误差分析2.2}
+理论分析与分析1.2相似，小信号模型也类似，故不加赘述。
+\begin{equation}
+  \begin{aligned}
+    \left | A_{vd}\right |&=\frac{\beta R_C\parallel\frac{R_L}{2}}{R_{B_1}+r_{be}+(1+\beta)\frac{R_{W_1}}{2}}=66.8\\
+    \left | A_{vds}\right |&=\left |\frac{A_{vd}}{2}\right |=33.4
+  \end{aligned}
+\end{equation}
+则可求出相对误差为:
+\begin{equation}
+  \begin{aligned}
+    \left |\frac{\Delta A_{vd}}{A_{vd}}\right |&=13\%\\
+      \left |\frac{\Delta A_{vds}}{A_{vds}}\right |&=13\%\\
+  \end{aligned}
+\end{equation}
+问题与典型时一致，基本上实验测得的偏大，显然应该与三极管参数相关。
+\subsection{实验内容2.3}
+实验测得的共模输出数据如表 \ref{tab:ncTab}所示。而输出波形由于输出已十分微弱，示波器显示已没有测量意义。
 
+\begin{table}[!h!tbp]
+  \caption{典型差动放大器共模输出数据}\label{tab:ncTab}
+    \centering
+    \begin{tabular}{|l|c|c|c|c|}
+    \hline
+    数据 &$U_{i}$&$U_{oc_1}$&$U_{oc_2}$&$U_{oc}$         \\ \hline
+    值   &$89.9mV$&$-1.000mV$&$-1.036mV$&$0.00mV$(测量精度下)     \\ \hline
+  \end{tabular}
+  \end{table}
+则可以计算出共模电压增益为(单端输出时取平均值):
+\begin{equation}
+  \begin{aligned}
+    \left | A_{ucs}\right |&=0.0111\\
+    \left | A_{uc}\right |&=0.00
+  \end{aligned}
+\end{equation}
+结合上一实验内容，可以算出差模抑制比为:
+\begin{equation}
+  \begin{aligned}
+    K_{CMRs}&=3.47\times10^3\\
+    K_{CMR}&=\infty
+  \end{aligned}
+\end{equation}
+\subsection{误差分析2.3}
+为计算共模输出，需要先求出恒流源等效电阻。但由于三极管参数未知，取$r_{ce}=100k\Omega$,则有
+\begin{equation}
+  \begin{aligned}
+    R_B&\approx(R+R_{W2})\parallel R_{E4}=1.64k\Omega\\
+    r_{be3}&=r_{bb'}+(1+\beta)\frac{26mV}{I_{E3}mA}=4.23k\Omega\\
+    R_e'&=r_{ce}(1+\frac{\beta R_{E_3}}{r_{be3}+R_{E3}+R_{B}})=3.91M\Omega
+  \end{aligned}
+\end{equation}
+则由此计算出的共模增益以及抑制比为
+\begin{equation}
+  \begin{aligned}
+    \left | A_{vcs}\right |&\approx\frac{R_c\parallel R_L}{2R_e'}\approx1\times10^{-3}\\
+    \left | A_{vc}\right |&=0.00\\
+    K_{CMRs}&=\left |\frac{A_{vds}}{A_{vcs}}\right |=3.34\times10^{4}\\
+    K_{CMR}&=\infty
+  \end{aligned}
+\end{equation}
+可见，基本上单端输出时数量级上差了一个数量级，故不再计算相对误差。这是因为此时的测量mV级已经相当不准确了，并且理论计算时要考虑多一个三极管，其所取
+参数基本上也不确定，由此造成的估计误差是相当大的。从测量数据上看，实际的$r_{ce}$可能并没有到几百千欧，由此造成的误差应该非常非常大。但在当前精度下，其双端输出抑制比已经趋向
+正无穷，可以认为还是符合要求的。
 \section{实验总结}
-blablabla
+本次实验测量了差动放大器的典型形态和电流源形态。可见使用恒流源作为负载之后，共模抑制比大幅度上升，这是因为恒流源等效输出电阻是非常大的。从理论分析上讲，
+与实验相比，精度比较一般。但在当前实验条件以及测量精度下，可以认为还是符合条件的，因此基本上的结果还是符合预期。
 \section{实验思考题}
 balabalabala
 
