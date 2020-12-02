@@ -167,6 +167,10 @@
 \newcommand{\course}{电子线路实验(1)}
 \newcommand{\newtitle}{差动放大器}
 
+%
+\newcommand{\p}{\par}
+\newcommand{\np}{\par\noindent}
+
 % =============================================
 % Part 1 Main document
 % =============================================
@@ -496,68 +500,51 @@
 本次实验测量了差动放大器的典型形态和电流源形态。可见使用恒流源作为负载之后，共模抑制比大幅度上升，这是因为恒流源等效输出电阻是非常大的。从理论分析上讲，
 与实验相比，精度比较一般。但在当前实验条件以及测量精度下，可以认为还是符合条件的，因此基本上的结果还是符合预期。
 \section{实验思考题}
-balabalabala
+\subsection{为什么要对差分放大器进行调零，在实验中是否非常重要？}
+\np \textbf{答：}
+\p 理论上电路的左右两端需要保持完全一致，才能保证在零输入时输出为 0，但实际上，因为左右元件的参数不能做到完全一致，所以 需要加入一个可调的元件来修正这种误差。
+\p 如果未进行调零或者调零调的不精确，那么在输入共模信号时，元件不对称带来的误差会使得 $u_{c1}$ 与 $u_{c2}$ 误差变大。这会使得 $u_c$ 变大。因为共模输出电压本来应该很小（1mV量级），如果这个值变大了，那么 $K_{CMR}=\frac{|u_d|}{|u_c|}$ 会变大非常多。这也意味着差动放大器的共模抑制比急剧下降。本来差分放大器就是用来抑制共模影响信号的（如零漂、温漂），这些误差值本来也不是太大。假如因为差动放大器未调零而使得输出共模信号很大，那么使用差动放大电路就没有任何优势了。
 
-\begin{appendix}
-
-\section{代码示例}
-
-\begin{lstlisting}[caption={一段C代码},captionpos=b]
-#include <stdio.h>
-int main (int argc, char *argv[]){
-  printf("Hello world!");
-}
-\end{lstlisting}
-
-\section{表格示例}
-表 \ref{tab:tab1}与表 \ref{tab:tab2}展示了表格示例
-\begin{table}[!h!tbp]
-\caption{一个简单的表格}\label{tab:tab1}
-  \centering
-  \begin{tabular}{|l|c|c|}
-	\hline
-	功能          &WEB         &APP         \\ \hline
-	注册          &$\surd$     &$\surd$     \\ \hline
-	登录          &$\surd$     &$\surd$     \\ \hline
-	推送          &$\times$    &$\surd$     \\ \hline
-\end{tabular}
-\end{table}
-
-\begin{table}[!h!tbp]
-\caption{自定义表格}\label{tab:tab2}
-  \centering
-\begin{tabular*}{0.75\textwidth}{@{\extracolsep{\fill}}lcc}
-    \toprule
-    功能          &WEB         &APP         \\
-    \midrule
-    注册          &$\surd$     &$\surd$     \\
-    登录          &$\surd$     &$\surd$     \\
-    推送          &$\times$    &$\surd$     \\
-    \bottomrule
-\end{tabular*}
-\end{table}
+\subsection{差分放大器的差模输入电压是与输入电压的差还是与输入电压成正比？}
+\np \textbf{答：}
+\p 假设输出是双端的，但值不相同，为 $u_{i1}$ 和 $u_{i2}$（单端输入是包括在内的，只需要令其中一个电压为 0）。
+\p 那么共模信号为 $u_c=\frac{u_{i1}+u_{i2}}{2}$，差模信号为 $u_d=\frac{u_{i1}-u_{i2}}{2}$，输入信号是二者叠加。而输出信号中共模成分基本被抑制，仅剩下差模成分，假设单端输出差模放大系数为 $A_{ds}$，那么输出电压为 $u_o=A_{ds}\cdot 2u_d=A_{ds}(u_{i1}-u_{i2})$。所以显然输出电压是与输入电压的差值成正比的。只放大差模信号，这也正是使用差动放大器的优势所在。
 
 
-\section{图片示例}
-图 \ref{fig:logo}展示了一个图片示例。
-\begin{figure}[htbp]
-\centering
-\fbox{\includegraphics[width=0.5\linewidth]{logo}}
-\caption{blablabla}
-\label{fig:logo}
+\subsection{典型差动放大电路与恒流源差动放大电路在观测 $u_{c1}$ 与 $u_{c2}$ 的波形时，其大小、极性及共模抑制比 $K_{CMR}$ 有何区别？为什么？}
+\np 答：
+\p 在共模时，只需要考虑一半的电路，恒流源等效于一个大电阻 $R$。如图所示：
+\begin{figure}[H]
+ \centering
+ \includegraphics[width=3.5cm]{CCircuit}
+ \caption{左边无恒流源，右边有恒流源}
+ \label{fig:add-3}
+\end{figure}
+\p 其交流小信号模型为：
+\begin{figure}[H]
+ \centering
+ \includegraphics[width=10cm]{CCircuitSmallSignal}
+ \caption{左边无恒流源，右边有恒流源}
+ \label{fig:add-3-ss}
+\end{figure}
+\p 容易计算出放大系数：
+\begin{itemize}
+ \item 无恒流源：
+ \np 
+ \[ A_{vc}=\frac{-(\beta+1)R_c}{r_{be}+(1+\beta)\cdot 2r_o} \]
+ \item 有恒流源：
+ \np
+ \[ A_{vc}=\frac{-(\beta+1)R_c}{r_{be}+(1+\beta)\cdot(2r_o+R)} \]
+\end{itemize}
+\p 因为 $R$ 是一很大的电阻，所以有恒流源时 $A_{vc}$ 比无恒流源时小得多，因此起到了进一步抑制共模信号的作用，可以进一步提高 $K_{CMR}$。
+\p 综上，根据理论，加入恒流源后，共模输出信号显著减小，极性不变，共模抑制比显著提高。
+\p 实际实验时，通过加入恒流源，确实能把 $u_{co}$ 从约 1mV 降到 0（小于毫伏表量程，也无法用示波器看见）。$K_{CMR}$ 急剧提高，直至近乎 $+\infty$。示波器上图像是 0 附近模糊的一片，并没有清晰的图像（参见 \ref{fig:add-3-real}），据估计，可能是因为输出信号太小，噪声等干扰信号占据了主导地位。所以，无法验证两种输出信号是否极性一致。
+\begin{figure}[H]
+ \centering
+ \includegraphics[width=6cm]{RealImage}
+ \caption{在有恒流源时，实际示波器上共模输出信号的图像}
+ \label{fig:add-3-real}
 \end{figure}
 
-\section{公式示例}
-式 (\ref{eqa:01})展示了一个公式的例子。
-\begin{equation}
-S_n = \frac{X_1 + X_2 + \cdots + X_n}{n}
-      = \frac{1}{n}\sum_{i}^{n} X_i
-\label{eqa:01}
-\end{equation}
-
-
-
-
-\end{appendix}
 
 \end{document}
