@@ -209,19 +209,285 @@
 请参看预习报告。
 
 \section{实验内容与步骤}
-\subsection{实验内容}
-	blablabla
-\subsection{实验步骤}
-	blablabla
+\subsection{实验一：验证编码器74LS148和译码器74LS138的逻辑功能}
+	\par 74LS148 是8线-3线编码器，74LS138 是3线-8线译码器。所以将二者3线端口直接相连，用 LED 灯的亮灭来检测高低电平，就可以看到编码和译码的全过程。由此得到电路图：
+	\begin{figure}[H]
+	 \centering
+	 \includegraphics[width=0.5\linewidth]{Exp01}
+	 \caption{实验一电路图}
+	 \label{fig:exp01}
+	\end{figure}
+	\par 由此写出 74LS148 和 74LS138 的真值表。
+	\par 真值表为：
+	\begin{table}[H]
+	\centering
+	\resizebox{\textwidth}{!}{
+	 \begin{tabular}{|cccccccc|ccc|ccc|cccccccc|}
+	  \hline
+	  \multicolumn{11}{|c|}{74LS148} &
+	  \multicolumn{11}{c|}{74LS138} \\
+	  \hline
+	  $I_0'$&$I_1'$&$I_2'$&$I_3'$&$I_4'$&$I_5'$&$I_6'$&$I_6'$
+	  &$Y_2'$&$Y_1'$&$Y_0'$
+	  &$A_2$&$A_1$&$A_0$
+	  &$Y_0'$&$Y_1'$&$Y_2'$&$Y_3'$&$Y_4'$&$Y_5'$&$Y_6'$&$Y_6'$
+	  \\\hline
+	  1&1&1&1&1&1&1&1 &1&1&1 &0&0&0 &0&1&1&1&1&1&1&1
+	  \\\hline
+	  0&1&1&1&1&1&1&1 &1&1&1 &0&0&0 &0&1&1&1&1&1&1&1
+	  \\\hline
+		X&0&1&1&1&1&1&1 &1&1&0 &0&0&1 &1&0&1&1&1&1&1&1
+		\\\hline
+		X&X&0&1&1&1&1&1 &1&0&1 &0&1&0 &1&1&0&1&1&1&1&1
+		\\\hline
+		X&X&X&0&1&1&1&1 &1&0&0 &0&1&1 &1&1&1&0&1&1&1&1
+		\\\hline
+		X&X&X&X&0&1&1&1 &0&1&1 &1&0&0 &1&1&1&1&0&1&1&1
+		\\\hline
+		X&X&X&X&X&0&1&1 &0&1&0 &1&0&1 &1&1&1&1&1&0&1&1
+		\\\hline
+		X&X&X&X&X&X&0&1 &0&0&1 &1&1&0 &1&1&1&1&1&1&0&1
+		\\\hline
+		X&X&X&X&X&X&X&0 &0&0&0 &1&1&1 &1&1&1&1&1&1&1&0
+		\\\hline
+	 \end{tabular}
+	 }
+	 \caption{实验一真值表}
+	\end{table}
+	
+\subsection{实验二：用两片74LS138扩展为一个4线–16线译码器}
+	\par 因为需要 16 位输出，所以需要两片 74LS138。
+	\par 将输入设为 $D_0,~D_1,~D_2,~D_3$，设 $D_3$ 为最高位（MSB），那么低三位可以用一个译码器去处理，设为译码器1。另一个译码器设为译码器2。
+	\par 如果 $D_3=0$，那么该位等于不存在，输出的唯一低电平一定在译码器1上。所以只需要保证此时译码器2输出全为1（无效）。
+	\par 如果 $D_3=1$，那么该位提供的权重为 $8_D$，此时输出的唯一低电平一定在译码器2上。而且可以发现，如果输出相差8位，那么正好是处在不同编译器的相同位置上。所以，对于两个译码器来说，3位输入线接法是一样的。只需要保证 $D_3=0$ 时，只有编码器1工作；$D_3=1$ 时，只有编码器2工作。因此可以给出如下的电路图：
+	\begin{figure}[H]
+	 \centering
+	 \includegraphics[width=0.5\linewidth]{Exp02}
+	 \caption{实验二电路图}
+	 \label{fig:exp02}
+	\end{figure}
+	\par 由此写出整个4线-16线译码器的真值表。
+	\par 真值表为：
+	\begin{table}[H]
+	 \centering
+	 \resizebox{\textwidth}{!}{
+	 \begin{tabular}{|cccc|cccccccccccccccc|}
+	  \hline
+	 	$D_3$&$D_2$&$D_1$&$D_0$
+	 	&$Z_0'$&$Z_1'$&$Z_2'$&$Z_3'$&$Z_4'$&$Z_5'$&$Z_6'$&$Z_7'$
+	 	&$Z_8'$&$Z_9'$&$Z_{10}'$&$Z_{11}'$&$Z_{12}'$&$Z_{13}'$
+	 	&$Z_{14}'$&$Z_{15}'$
+	 	\\\hline
+	 	0&0&0&0 &0&1&1&1 &1&1&1&1 &1&1&1&1 &1&1&1&1
+	 	\\\hline
+	 	0&0&0&1 &1&0&1&1 &1&1&1&1 &1&1&1&1 &1&1&1&1
+	 	\\\hline
+	 	0&0&1&0 &1&1&0&1 &1&1&1&1 &1&1&1&1 &1&1&1&1
+	 	\\\hline
+	 	0&0&1&1 &1&1&1&0 &1&1&1&1 &1&1&1&1 &1&1&1&1
+	 	\\\hline
+	 	0&1&0&0 &1&1&1&1 &0&1&1&1 &1&1&1&1 &1&1&1&1
+	 	\\\hline
+	 	0&1&0&1 &1&1&1&1 &1&0&1&1 &1&1&1&1 &1&1&1&1
+	 	\\\hline
+	 	0&1&1&0 &1&1&1&1 &1&1&0&1 &1&1&1&1 &1&1&1&1
+	 	\\\hline
+	 	0&1&1&1 &1&1&1&1 &1&1&1&0 &1&1&1&1 &1&1&1&1
+	 	\\\hline
+	 	1&0&0&0 &1&1&1&1 &1&1&1&1 &0&1&1&1 &1&1&1&1
+	 	\\\hline
+	 	1&0&0&1 &1&1&1&1 &1&1&1&1 &1&0&1&1 &1&1&1&1
+	 	\\\hline
+	 	1&0&1&0 &1&1&1&1 &1&1&1&1 &1&1&0&1 &1&1&1&1
+	 	\\\hline
+	 	1&0&1&1 &1&1&1&1 &1&1&1&1 &1&1&1&0 &1&1&1&1
+	 	\\\hline
+	 	1&1&0&0 &1&1&1&1 &1&1&1&1 &1&1&1&1 &0&1&1&1
+	 	\\\hline
+	 	1&1&0&1 &1&1&1&1 &1&1&1&1 &1&1&1&1 &1&0&1&1
+	 	\\\hline
+	 	1&1&1&0 &1&1&1&1 &1&1&1&1 &1&1&1&1 &1&1&0&1
+	 	\\\hline
+	 	1&1&1&1 &1&1&1&1 &1&1&1&1 &1&1&1&1 &1&1&1&0
+	 	\\\hline
+	 \end{tabular}
+	 }
+	 \caption{实验二真值表}
+	\end{table}
 
-\section{实验数据处理与分析}
-\subsection{实验内容1}
-	blablabla
-\subsection{误差分析1}
-	blablabla
+\subsection{实验三：用74LS138和74LS20双与非门设计控制电路}
+	\par {\kaishu 某工厂有三个车间 $A,~B,~C$ 和一个自备发电站，站内有两台发电机 $M,~N$ 发电机 $N$ 的发电能力是 $M$ 的两倍。如果一个车间开工，启动 $M$ 就可以满足要求；如果两个车间开工，启动 $N$ 就可以满足要求；如果三个车间均开工，同时启动 $M$ 和 $N$ 才能满足要求。设计控制发电机的逻辑电路。
+	}
+	\par 逻辑表达式为：
+	\[ M=A'B'C+A'BC'+AB'C'+ABC=\sum m(0,1,2,4,7)
+	=(m_1'm_2'm_4'm_7')'\]
+	\[ N=A'BC+AB'C+ABC'+ABC=\sum m(3,5,6,7)
+	=(m_3'm_5'm_6'm_7')'\]
+	\par 将 $A,~B,~C$接在 74LS138 的输入端，接下来只要将输出进行逻辑操作就可以了。设计电路图为：
+	\begin{figure}[H]
+	 \centering
+	 \includegraphics[width=0.5\linewidth]{Exp03}
+	 \caption{实验三电路图}
+	 \label{fig:exp03}
+	\end{figure}
+	\par 由此写出输入与输出的真值表。
+	真值表为：
+	\begin{table}[H]
+	 \centering
+	 \begin{tabular}{|ccc|cc|}\hline
+	  $A$&$B$&$C$ &$M$&$N$
+	  \\\hline
+	  0&0&0 &0&0
+	  \\\hline
+	  0&0&1 &1&0
+	  \\\hline
+	  0&1&0 &1&0
+	  \\\hline
+	  0&1&1 &0&1
+	  \\\hline
+	  1&0&0 &1&0
+	  \\\hline
+	  1&0&1 &0&1
+	  \\\hline
+	  1&1&0 &0&1
+	  \\\hline
+	  1&1&1 &1&1
+	  \\\hline
+	 \end{tabular}
+	 \caption{实验三真值表}
+	\end{table}
 
+\subsection{实验四：用74LS138和74LS20双与非门设计多输出函数}
+	\par {\kaishu 用74LS138和74LS20双与非门设计下面的多输出函数：
+	\begin{align*}
+	 &F_1=\sum m(0,4)\\
+	 &F_2=\sum m(1,2,3,5,6,7)\\
+	\end{align*}
+	画出逻辑电路图并搭建电路。
+	}
+	\par 逻辑表达式化简为：
+	\[ F_1=\sum m(0,4)=m_0+m_4=(m_0'm_4')' \]
+	\[ F_2=\sum m(1,2,3,5,6,7)=F_1' \]
+	\par 将 $A_0,~A_1,~A_2$ 接在 74LS138 的输入端，接下来只要将输出进行逻辑操作就可以了。设计电路图为：
+	\begin{figure}[H]
+	 \centering
+	 \includegraphics[width=0.5\linewidth]{Exp04}
+	 \caption{实验四电路图}
+	 \label{fig:exp04}
+	\end{figure}
+	\par 由此写出输入与输出的真值表。
+	真值表为：
+	\begin{table}[H]
+	 \centering
+	 \begin{tabular}{|ccc|cc|}\hline
+	  $A_2$&$A_1$&$A_0$ &$F_1$&$F_2$
+	  \\\hline
+	  0&0&0 &1&0
+	  \\\hline
+	  0&0&1 &0&1
+	  \\\hline
+	  0&1&0 &0&1
+	  \\\hline
+	  0&1&1 &0&1
+	  \\\hline
+	  1&0&0 &1&0
+	  \\\hline
+	  1&0&1 &0&1
+	  \\\hline
+	  1&1&0 &0&1
+	  \\\hline
+	  1&1&1 &0&1
+	  \\\hline
+	 \end{tabular}
+	 \caption{实验四真值表}
+	\end{table}
+	
+\subsection{实验五：观察4511控制的LED}
+	\par 将实验箱上4个逻辑开关的输出接到1组显示译码器 4511 的$A,~B,~C,~D$ 输入口，接上+5V显示器的电源，然后拨动开关（0000-1111），观察并记录 LED 数码管显示的对应数字，判断译码显示是否正常。
+	\par 再将实验箱上的4组拨码开关的输出 $A_i,~B_i,~C_i,~D_i$ 分别接到4组显示译码器 4511 的对应输入口，按动四个数码的“+”“-” 键，观察拨码盘上的四位数与 LED 数码管显示的对应数字是否一致，译码显示是否正常。
+	\par 4511 的功能表为：
+	\begin{table}[H]
+	 \centering
+	 \begin{tabular}{|cccc|c|cccc|c|}\hline
+	  \multicolumn{4}{|c|}{In} & Out
+	  &\multicolumn{4}{c|}{In} &Out
+	  \\\hline
+	  $D$&$C$&$B$&$A$ &Type
+	  &$D$&$C$&$B$&$A$ &Type
+	  \\\hline
+	  0&0&0&0&
+	  \begin{minipage}{0.1\textwidth}
+	   \centering
+	   \includegraphics[height=0.5cm]{Digit0}
+	  \end{minipage}
+	  &1&0&0&0&
+	  \begin{minipage}{0.1\textwidth}
+	   \centering
+	   \includegraphics[height=0.5cm]{Digit8}
+	  \end{minipage}
+	  \\\hline
+	  0&0&0&1&
+	  \begin{minipage}{0.1\textwidth}
+	   \centering
+	   \includegraphics[height=0.5cm]{Digit1}
+	  \end{minipage}
+	  &1&0&0&1&
+	  \begin{minipage}{0.1\textwidth}
+	   \centering
+	   \includegraphics[height=0.5cm]{Digit9}
+	  \end{minipage}
+	  \\\hline
+	  0&0&1&0&
+	  \begin{minipage}{0.1\textwidth}
+	   \centering
+	   \includegraphics[height=0.5cm]{Digit2}
+	  \end{minipage}
+	  &1&0&1&0&	\textbackslash
+	  \\\hline
+	  0&0&1&1&
+	  \begin{minipage}{0.1\textwidth}
+	   \centering
+	   \includegraphics[height=0.5cm]{Digit3}
+	  \end{minipage}
+	  &1&0&1&1&	\textbackslash
+	  \\\hline
+	  0&1&0&0&
+	  \begin{minipage}{0.1\textwidth}
+	   \centering
+	   \includegraphics[height=0.5cm]{Digit4}
+	  \end{minipage}
+	  &1&1&0&0&	\textbackslash
+	  \\\hline
+	  0&1&0&1&
+	  \begin{minipage}{0.1\textwidth}
+	   \centering
+	   \includegraphics[height=0.5cm]{Digit5}
+	  \end{minipage}
+	  &1&1&0&1&	\textbackslash
+	  \\\hline
+	  0&1&1&0&
+	  \begin{minipage}{0.1\textwidth}
+	   \centering
+	   \includegraphics[height=0.5cm]{Digit6}
+	  \end{minipage}
+	  &1&1&1&0&	\textbackslash
+	  \\\hline
+	  0&1&1&1&
+	  \begin{minipage}{0.1\textwidth}
+	   \centering
+	   \includegraphics[height=0.5cm]{Digit7}
+	  \end{minipage}
+	  &1&1&1&1&	\textbackslash
+	  \\\hline
+	 \end{tabular}
+	 \caption{实验五功能表}
+	\end{table}
+	\par 将拨码开关与译码器相连接，变换拨码开关的数字。经过实验，发现 LED 数码管显示的数字与拨码开关拨码盘的数字完全一致。
+	
 \section{实验总结}
-blablabla
+	\par 本次实验，我们使用了一些数字电路中常用的编码译码芯片。编码是将输入的一位信号（只有一位有效）转换成紧凑的 8421BCD 码；而译码是其反过程。
+	\par 编码可以减少走线的数目，从而节省资源；而译码可以产生便于逻辑操作的最小项表达式（不过是低电平有效），从而可以构建出任意与输入位数一致的逻辑表达式。
+	\par 生活中有很多地方用七段 LED 数码管来显示数字。对于仅仅显示数字的设备而言，数码管只有七段（有时候用到小数点，是八段），易于控制。但是尽管如此，因为需要对照着数字显示图样来确定各位的高低，使用起来还不够方便。而 4511 作为专用于数码管的译码器，可以将输入的 8421BCD 码译码成控制显示该数字的信号。这样输出的数字就与输入的 8421BCD 码简单地对应起来了，使用方便。
 \section{实验思考题}
 \subsection{题目一}
 用两片74LS138和必要的门电路实现以下多输出函数，画出电路图。
@@ -247,72 +513,11 @@ blablabla
 \end{equation}
 因此，设计的电路图如图 \ref{fig:pb1}所示。
 
-\begin{figure}[htbp]
+\begin{figure}[H]
   \centering
   \fbox{\includegraphics[width=0.5\linewidth]{pb1.png}}
   \caption{思考题一电路图}
   \label{fig:pb1}
   \end{figure}
-\begin{appendix}
-
-\section{代码示例}
-
-\begin{lstlisting}[caption={一段C代码},captionpos=b]
-#include <stdio.h>
-int main (int argc, char *argv[]){
-  printf("Hello world!");
-}
-\end{lstlisting}
-
-\section{表格示例}
-表 \ref{tab:tab1}与表 \ref{tab:tab2}展示了表格示例
-\begin{table}[!h!tbp]
-\caption{一个简单的表格}\label{tab:tab1}
-  \centering
-  \begin{tabular}{|l|c|c|}
-	\hline
-	功能          &WEB         &APP         \\ \hline
-	注册          &$\surd$     &$\surd$     \\ \hline
-	登录          &$\surd$     &$\surd$     \\ \hline
-	推送          &$\times$    &$\surd$     \\ \hline
-\end{tabular}
-\end{table}
-
-\begin{table}[!h!tbp]
-\caption{自定义表格}\label{tab:tab2}
-  \centering
-\begin{tabular*}{0.75\textwidth}{@{\extracolsep{\fill}}lcc}
-    \toprule
-    功能          &WEB         &APP         \\
-    \midrule
-    注册          &$\surd$     &$\surd$     \\
-    登录          &$\surd$     &$\surd$     \\
-    推送          &$\times$    &$\surd$     \\
-    \bottomrule
-\end{tabular*}
-\end{table}
-
-
-\section{图片示例}
-图 \ref{fig:logo}展示了一个图片示例。
-\begin{figure}[htbp]
-\centering
-\fbox{\includegraphics[width=0.5\linewidth]{logo}}
-\caption{blablabla}
-\label{fig:logo}
-\end{figure}
-
-\section{公式示例}
-式 (\ref{eqa:01})展示了一个公式的例子。
-\begin{equation}
-S_n = \frac{X_1 + X_2 + \cdots + X_n}{n}
-      = \frac{1}{n}\sum_{i}^{n} X_i
-\label{eqa:01}
-\end{equation}
-
-
-
-
-\end{appendix}
 
 \end{document}
