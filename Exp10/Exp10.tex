@@ -153,6 +153,14 @@
   }
 \makeatother
 
+%%%other for this doc
+\newcommand{\p}{\par}
+\newcommand{\np}{\par\noindent}
+\newcommand\pd{\partial}
+\newcommand\dd{\thinspace\mathrm{d}}
+
+%%%
+
 % =============================================
 % Part 1 Edit the info
 % =============================================
@@ -317,7 +325,7 @@
     \begin{equation}
       \begin{aligned}
         R_{C2}'&=R_{C2}\parallel R_f=3.38k\Omega\\
-        A_{v2}&=\frac{-\beta R_{C2'}\parallel R_L}{r_{be2}+(1+\beta)R_{E2}}\\
+        A_{v2}&=\frac{-\beta (R_{C2'}\parallel R_L)}{r_{be2}+(1+\beta)R_{E2}}\\
         A_{v2o}&=-7.35,A_{v2L}=-5.49\\
         R_o&=R_{o2}\approx R_{C2}'=3.38k\Omega\\
         R_{i2}&=(R_{B22}+R_{W2})\parallel R_{B21}\parallel [r_{be2}+(1+\beta)R_{C2}']= 2.63k\Omega\\
@@ -382,7 +390,7 @@
   可见出了输入电阻以外，其他值的精确度都很高，这是因为理论分析采用了之前的测量值，同时依赖的元件标识值很少，
   但由此可见确实本次实验元件标识值不准对误差的影响是很大的，这里的实验误差主要来自于毫伏表测量的不准确以及元件误差。
   \subsubsection{通频带}
-  实验测量的到的反馈电路的通频带为$18.2Hz-505kHz$，带宽为$BW=505kHz$,可见反馈电路对下截值频率的影响不大，对带宽有强增益左右。
+  实验测量的到的反馈电路的通频带为$18.2Hz-505kHz$，带宽为$BW=505kHz$,可见反馈电路对下截值频率的影响不大，对带宽有强增益。
   \subsubsection{误差分析}
   理论计算出加入反馈后的数值为：
   \begin{equation}
@@ -405,69 +413,93 @@
 \section{实验总结}
 本次实验测量了负反馈放大器的动态参数，并将其于普通放大器作比较，实验值和理论值吻合度比较好。熟悉了负反馈放大器动态参数的原理以及测量方法，
 实验虽有一定误差，但是在实验条件内，精度非常好，总体成功令人满意。
+
 \section{实验思考题}
-balabalabala
 
-\begin{appendix}
+\subsection{总结负反馈对放大器放大性能的影响}
+\np\textbf{答：}
+\begin{enumerate}
+ \item\textbf{增益变得更加稳定：}
+ \p 在开环时电压增益为 $A$，在闭环时电压增益变为 $A_f=\frac{A}{1+AF}$，其中 $F$ 为反馈系数。下面假设开环增益变化了 $\dd{A}$，计算闭环增益的变化：
+ \[ \frac{\dd{A_f}}{\dd{A}}=\frac{(1+AF)-AF}{(1+AF)^2}
+ =\frac{1}{(1+AF)^2}
+ =\frac{1}{1+AF}\frac{A_f}{A} \]
+ \[ \implies \frac{\frac{\dd{A_f}}{A_f}}{\frac{\dd{A}}{A}}
+ =\frac{1}{1+AF}\ll1 \]
+ \p 所以很容易看出，即使开环增益变化（或者放大元件，诸如 BJT、MOSFET、JFET等器件的性能参数变化）比较大时，闭环增益并不会受到太大影响。
+ 
+ \item\textbf{带宽增加：}
+ \p 以一个带通电路为例，假设其上、下截止圆频率为 $\omega_H,~\omega_L$，且 $\omega_L\ll\omega_H$，那么其幅频响应可以大致写为：
+ \[ A(j\omega)=\frac{A_0}{\left( 1+j\frac{\omega}{\omega_H} \right)
+ \left( 1+j\frac{\omega_L}{\omega} \right)},\qquad A_0\text{是中频增益} \]
+ \p 容易检验这是一个带通：
+ \begin{itemize}
+  \item $\omega\ll\omega_L\ll\omega_H$ 时：
+	 \[20\lg|A(j\omega)|\approx 20\lg\frac{A_0}{\omega_L/\omega}
+	 =20\lg\frac{A_0}{\omega_L}+20\lg\omega \]
+	\item $\omega_L\ll\omega\ll\omega_H$ 时：
+	 \[20\lg|A(j\omega)|\approx 20\lg A_0 \]
+	\item $\omega_L\ll\omega_H\ll\omega$ 时：
+	 \[20\lg|A(j\omega)|\approx 20\lg\frac{A_0\omega_H}{\omega}
+	 =20\lg{(A_0\omega_H)}-20\lg\omega \]
+ \end{itemize}
+ \p 以这样的带通电路为例。计算接入负反馈后的新截止频率。
+ \begin{itemize}
+  \item 下截止频率。此时大致有 $\omega\ll\omega_H$ ：
+  \[ A_f(j\omega)=\frac{\frac{A_0}{1+j\frac{\omega_L}{\omega}}}
+  {1+\frac{A_0}{1+j\frac{\omega_L}{\omega}}F}
+  =\frac{A_0}{1+j\frac{\omega_L}{\omega}+A_0F }
+  =\frac{ \frac{A_0}{1+A_0F} }
+  { 1+j\frac{\omega_L/(1+A_0F)}{\omega} }
+  \]
+  \p 所以 $\omega_{fL}=\omega_L/(1+A_0F)$
+  \item 上截止频率。此时大致有 $\omega\gg\omega_L$ ：
+  \[ A_f(j\omega)=\frac{\frac{A_0}{1+j\frac{\omega}{\omega_H}}}
+  {1+\frac{A_0}{1+j\frac{\omega}{\omega_H}}F}
+  =\frac{A_0}{1+j\frac{\omega}{\omega_H}+A_0F }
+  =\frac{ \frac{A_0}{1+A_0F} }
+  { 1+j\frac{\omega}{\omega_H(1+A_0F)} }
+  \]
+  \p 所以 $\omega_{fH}=\omega_H(1+A_0F)$
+ \end{itemize}
+ \p 所以带宽很显然扩展了：
+ \[ BW=\omega_H-\omega_L\approx\omega_H \]
+ \[ BW_f=\omega_{fH}-\omega_{fL}\approx(1+A_0F)\omega_{fH}
+ =(1+A_0F)BW \]
+ 
+ \item\textbf{输入电阻}
+ 	\begin{itemize}
+ 	 \item 对于输入端电压反馈：
+ 	 \[ R_{if}=\frac{U_{id}+U_{if}}{I_i}=(1+AF)\frac{U_{id}}{I_i}
+ 	 =(1+AF)R_i
+ 	 \]
+ 	 \item 对于输入端电流反馈：
+ 	 \[ R_{if}=\frac{U_i}{I_{id}+I_{if}}=\frac{1}{1+AF}
+ 	 \frac{U_{i}}{I_{id}}
+ 	 =\frac{1}{1+AF}R_i
+ 	 \]
+ 	\end{itemize}
+ 	\p 无论哪种都使得放大电路的放大系数更稳定。
+ 	
+ 	\item\textbf{输出电阻}
+ 	 \begin{itemize}
+ 	  \item 对于输出端并联反馈：
+ 	  \[ R_{of}=\frac{R_o}{1+AF} \]
+ 	  \item 对于输出端串联反馈：
+ 	  \[ R_{of}=(1+AF)R_o \]
+ 	 \end{itemize}
+ 	 \p 推导过程比较繁琐，在此略去。对于并联反馈，其对下一级相当于电压源，内阻更小，意味着电压源更加接近理想电压源，带负载能力增强；对于串联反馈，其对下一级相当于电流源，内阻更大，意味着电流源更加接近理想电流源，带负载能力也增强。
+\end{enumerate}
+\np\phantom{a}
+\p 不过，获得以上的优点肯定是有代价的。代价就是，电压增益系数被缩小了，而且需要的元件数量增加了。
 
-\section{代码示例}
+\subsection{测量通频带时，影响 $f_L$ 和 $f_H$ 的因素有哪些}
+\np\textbf{答：}
+\begin{enumerate}
+ \item 耦合电容。在频率很小时（测量中频率低到了 10Hz 左右），电容的阻抗 $Z_C=\frac{1}{j\omega C}$ 不是太小，因此不能再当作短路。此时测量的 $f_L$ 会有偏差。
+ \item 毫伏表的精度。题中通过毫伏表测量的电压值推算其是否达到截止频率。但是题中的测量电压不算太大（十几mV），假设仪器绝对误差一致，那么电压越小，相对误差就越大，所以可能频率测得不准。考虑到 $f_L$ 很小，所以这种误差对于 $f_H$ 的影响没那么大，而对 $f_L$ 的影响很大（因为 $f_L$ 很小，如果要计算 $f_{fl}/f_L$ 那么这种误差就会使得结果误差比较大）。
+ \item 温度。尽管该电路拥有负反馈回路，但是温度的影响不可能完全消除。温度会使得 BJT 自身的参数变化，尤其是放大倍数 $\beta$ 变化，这对截止频率有显著影响。
+\end{enumerate}
 
-\begin{lstlisting}[caption={一段C代码},captionpos=b]
-#include <stdio.h>
-int main (int argc, char *argv[]){
-  printf("Hello world!");
-}
-\end{lstlisting}
-
-\section{表格示例}
-表 \ref{tab:tab1}与表 \ref{tab:tab2}展示了表格示例
-\begin{table}[!h!tbp]
-\caption{一个简单的表格}\label{tab:tab1}
-  \centering
-  \begin{tabular}{|l|c|c|}
-	\hline
-	功能          &WEB         &APP         \\ \hline
-	注册          &$\surd$     &$\surd$     \\ \hline
-	登录          &$\surd$     &$\surd$     \\ \hline
-	推送          &$\times$    &$\surd$     \\ \hline
-\end{tabular}
-\end{table}
-
-\begin{table}[!h!tbp]
-\caption{自定义表格}\label{tab:tab2}
-  \centering
-\begin{tabular*}{0.75\textwidth}{@{\extracolsep{\fill}}lcc}
-    \toprule
-    功能          &WEB         &APP         \\
-    \midrule
-    注册          &$\surd$     &$\surd$     \\
-    登录          &$\surd$     &$\surd$     \\
-    推送          &$\times$    &$\surd$     \\
-    \bottomrule
-\end{tabular*}
-\end{table}
-
-
-\section{图片示例}
-图 \ref{fig:logo}展示了一个图片示例。
-\begin{figure}[htbp]
-\centering
-\fbox{\includegraphics[width=0.5\linewidth]{logo}}
-\caption{blablabla}
-\label{fig:logo}
-\end{figure}
-
-\section{公式示例}
-式 (\ref{eqa:01})展示了一个公式的例子。
-\begin{equation}
-S_n = \frac{X_1 + X_2 + \cdots + X_n}{n}
-      = \frac{1}{n}\sum_{i}^{n} X_i
-\label{eqa:01}
-\end{equation}
-
-
-
-
-\end{appendix}
 
 \end{document}
