@@ -165,7 +165,7 @@
 
 
 \newcommand{\course}{电子线路实验(1)}
-\newcommand{\newtitle}{None}
+\newcommand{\newtitle}{波形放大器}
 
 % =============================================
 % Part 1 Main document
@@ -202,11 +202,11 @@
 
 \section{实验目的}
 
-blablabla
+请参看预习报告。
 
 \section{实验原理}
 
-blablabla
+请参看预习报告。
 
 \section{实验内容与步骤}
 \subsection{实验内容一}
@@ -216,7 +216,7 @@ blablabla
   \item 如图\ref{fig:RCSin}连接电路，调节电位器$R_W$，观察振荡器输出端$u_o$
   的波形，测量临界起振时正弦波的$R_W$值，并画出此时输出波形。
   \item 调节电位器$R_W$，使输出电压$U_o$幅值最大、稳定且不失真，画出输出波形，并测出相应的fo值。用交流毫
-  伏表分别测量输出电压$U_o$和反馈电压$U_p1$的值。
+  伏表分别测量输出电压$U_o$和反馈电压$U_{p1}$的值。
   \item 改变$R_4=R_5=20kΩ$，电容$C_1,C_2$的值不变，测量并画出振荡器稳定输出波形，并测出相应fo的值。
 \end{enumerate}
 \begin{figure}[htbp]
@@ -243,12 +243,58 @@ blablabla
 
 \section{实验数据处理与分析}
 \subsection{实验内容1}
-	blablabla
+\begin{enumerate}
+  \item 实验测量得到当$R_W=0.9026k\Omega$时，恰好产生震荡，此时测量得到的波形如附图一所示，测得频率值为
+  $f_0=1.566kHz$
+  \item 测得输出电压幅度最大且不失真时电阻为$R_W=1.617k\Omega$，$f_0=1.490kHz$，测量得到的波形图附图二所示，交流毫伏表测量得到的值为$U_{o}=5.69Vrms,U_{P1}=1.87Vrms$。
+  \item 改变$R_4,R_5$的阻值后，测量得到的稳定输出波形如附图三所示，此时$f_0=737.04Hz$。
+\end{enumerate}
 \subsection{误差分析1}
-	blablabla
+  为分析误差，首先求出震荡频率的理论值，由于二极管的电阻不明，因此无法求出临界震荡电阻，有
+  \begin{equation}
+    \begin{aligned}
+      f_0&=\frac{1}{2\pi RC}\\
+      R&=R_4=R_5=10k\Omega\Rightarrow f_{01}=1.591kHz\\
+      R&=R_4=R_5=20k\Omega\Rightarrow f_{02}=795.77Hz
+    \end{aligned}
+  \end{equation}
+  由此，可见三次测量得到的相对误差分别为:
+  \begin{equation}
+    \left |\frac{\Delta f_{01}^{(0)}}{f_{01}}\right |=1.6\%,
+    \left |\frac{\Delta f_{01}^{(1)}}{f_{01}}\right |=6.3\%,
+    \left |\frac{\Delta f_{02}}{f_{02}}\right |=7.4\%,
+  \end{equation}
+  可见，误差相对较小，实验测量得到的频率值相比理论值均偏小，推测可能是$C_1$实际值比标称值偏大导致的。同时，
+  示波器本身也带来一定的测量误差。但实验中发现实际上频率会随着$R_W$有一定的变化，虽然不大，但这与理论预言不符合。这是因为放大器
+  本身并非理想，本身有一定的频率响应带来了一定的调制。
+\subsection{实验内容2}
+\begin{enumerate}
+  \item 实验测量得到，当$R_W=43.62k\Omega$时，产生频率为$f_0=419Hz$的三角波，输出的波形图如附图四所示，可见三角波与方波反向，幅度比为$|A|=0.472$。
+  \item 实验测量得到，当$R_W$增大时频率减小，反之增大。而$u_{o1},u_{o2}$幅度基本不变。
+  \item 固定$R_W$，当$R_1$增大时，频率减小，$u_{o2}$增大；反之频率增大，$u_{o2}$减小。$u_{o1}$幅度基本不变。
+\end{enumerate}
+\subsection{误差分析2}
+  理论求出输出频率以及幅度比如下:
+  \begin{equation}
+    \begin{aligned}
+      f_0&=\frac{R_2}{4R_1(R_W+R_f)C}=540Hz\\
+      |A|&=\frac{R_1}{R_2}=0.454
+    \end{aligned}
+  \end{equation}
+  则可以求出相对误差分别为:
+  \begin{equation}
+    \left |\frac{\Delta f_{0}}{f_{0}}\right |=22.4\%,
+    \left |\frac{\Delta A}{A}\right |=4.0\%,
+  \end{equation}
+  可见频率的误差很大，经检测，反馈电容实际值为$C_f=28nF$，对应理论频率$f_0=424Hz,\left |\frac{\Delta f_{0}}{f_{0}}\right |=1.2\%$，可见这个误差主要是因为反馈电容$C_f$的值与标识值误差很大造成的。
+  幅度比值误差较小，实验结果比较理想。
 
+  同时，从理论分析中，可以知道$R_W$增大时，$f_0$的分母增大，故$f_0$减小，而$|A|$与$R_W$无关。因此，实验得到的变化趋势与理论分析吻合。
+  当$R_1$增大时，同样有$f_0$的分母增大，故$f_0$减小。同时$|A|$的分母也增大，因此$|A|$也减小，当$u_{o1}$不变时，$|u_{o2}|$减小，均与理论吻合。误差主要来源于元件的
+  标识值误差，同时也有示波器的测量误差。
 \section{实验总结}
-blablabla
+本次实验通过搭建RC桥式正弦波振荡器电路和方波三角波发生器电路，学习了震荡电路的基本构成，原理和实验方法。并利用示波器测量了其相关的性能以及性质。总体
+实验结果与理论吻合得较好，虽然有一定误差，但也准确地定位了误差的来源，做了修正。
 \section{实验思考题}
 balabalabala
 
