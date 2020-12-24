@@ -200,6 +200,21 @@
 % Part 2 Main document
 % =============================================
 
+%
+\newcommand{\p}{\par}
+\newcommand{\np}{\par\noindent}
+%
+\newcommand{\expa}{用8选1数据选择器74LS151设计三输入多数表决电路}
+\newcommand{\expb}{用两片74LS151实现逻辑函数: $Y=\sum m(6,7,8,11,13)$}
+\newcommand{\expc}{试用8选1数据选择器74LS151产生逻辑函数：
+$Y=AC'D+BC+BC'D'+A'B'CD$}
+\newcommand{\expd}{用双4选1数据选择器74LS153实现一位全加器}
+\newcommand{\chip}{数据选择器74LS151}
+
+\newcommand{\CI}{C\negthinspace I}
+\newcommand{\CO}{C\negthinspace O}
+%
+
 \section{实验目的}
 
 请参看预习报告。
@@ -208,20 +223,179 @@
 
 请参看预习报告。
 
-\section{实验内容与步骤}
-\subsection{实验内容}
-	blablabla
-\subsection{实验步骤}
-	blablabla
+\section{实验内容、步骤与结果}
+ \subsection{实验一：\expa}
+  \p 设三输入为 $A_0,\ A_1,\ A_2$，多数表决通过的逻辑函数为：
+  \[ Y=A_2A_1A_0+A_2A_1A_0'+A_2A_1'A_0+A_2'A_1A_0 \]
+  \p 逻辑表达式由4个最小项组成，所以，在\chip 中，需要将 $D_7,\ D_6,\ D_5,\ D_3$ 输入接高，其余接低。然后 $A_2,\ A_1,\ A_0$ 分别对应芯片三位输入的从高到低位，于是可得电路连线图：
+  \begin{figure}[H]
+   \centering
+   \includegraphics[width=6cm]{Exp01}
+   \caption{实验一电路图}
+   \label{fig:Exp01}
+  \end{figure}
+  \p 由此得到电路的真值表：
+  \begin{table}[H]
+   \centering
+   \begin{tabular}{|ccc|c|}\hline
+    \multicolumn{3}{|c|}{In} &Out
+    \\\hline
+    $A_2$ &$A_1$ &$A_0$ &$Y$
+    \\\hline
+    0 &0 &0 &0\\
+    0 &0 &1 &0\\
+    0 &1 &0 &0\\
+    0 &1 &1 &1\\
+    1 &0 &0 &0\\
+    1 &0 &1 &1\\
+    1 &1 &0 &1\\
+    1 &1 &1 &1
+    \\\hline
+   \end{tabular}
+   \caption{实验一真值表}
+   \label{tab:Exp01}
+  \end{table}
+  
+ \subsection{实验二：\expb}
+  \p 因为最终结果是最小项之和，其中的最小项只要不是全为0，输出就为1。设 $A_3,\ A_2,\ A_1,\ A_0$ 分别为高到低位。
+  \p 当 $A_3=0$ 时，任何 $m(k),\ k\geqslant 9$ 的最小项都一定为0，此时高位片不需要考虑，即给高片 $S'$ 输入0，不使能。
+  \p 当 $A_3=0$ 时，任何 $m(k),\ k\leqslant 8$ 的最小项一定都为0，此时低位片不需要考虑，即给低片 $S'$ 输入0，不使能。
+  \p 而某一片工作时，只需要给在结果中出现的最小项输入1，其余置0即可。于是得到电路图：
+  \begin{figure}[H]
+   \centering
+   \includegraphics[width=6cm]{Exp02}
+   \caption{实验二电路图}
+   \label{fig:Exp02}
+  \end{figure}
+  \p 由此得到电路的真值表：
+  \begin{table}[H]
+   \centering
+   \begin{tabular}{|cccc|c|cccc|c|}\hline
+    \multicolumn{4}{|c|}{In} &Out 
+    &\multicolumn{4}{|c|}{In} &Out
+    \\\hline
+    $A_3$ &$A_2$ &$A_1$ &$A_0$ &$Y$ &
+    $A_3$ &$A_2$ &$A_1$ &$A_0$ &$Y$
+    \\\hline
+    0 &0 &0 &0	&0 &
+    1 &0 &0 &0	&1\\
+    0 &0 &0 &1	&0 &
+    1 &0 &0 &1	&0\\
+    0 &0 &1 &0	&0 &
+    1 &0 &1 &0	&0\\
+    0 &0 &1 &1	&0 &
+    1 &0 &1 &1	&1\\
+    0 &1 &0 &0	&0 &
+    1 &1 &0 &0	&0\\
+    0 &1 &0 &1	&0 &
+    1 &1 &0 &1	&1\\
+    0 &1 &1 &0	&1 &
+    1 &1 &1 &0	&0\\
+    0 &1 &1 &1	&1 &
+    1 &1 &1 &1	&0
+    \\\hline
+   \end{tabular}
+   \caption{实验二真值表}
+   \label{tab:Exp02}
+  \end{table}
+  
+ \subsection{实验三：\expc}
+  \p 设 $A,\ ,B,\ C$ 为地址控制位，$D$ 为芯片接的输入信息。将逻辑函数化成最小项之和表达式：
+  \begin{align*}
+	 Y&=AC'D+BC+BC'D'+A'B'CD\\
+	 &=ABC'D+AB'C'D+ABCD+A'BCD+ABCD'+A'BCD'\\
+	 &\qquad+ABC'D'+A'BC'D'+A'B'CD\\
+	 &=m_0\cdot0+m_1D+m_2D'+m_3\cdot1+m_4D
+	 +m_5\cdot0+m_6\cdot1+m_7\cdot1
+  \end{align*}
+  \p 端口连接如下：
+  \begin{center}
+   \kaishu $D_0$ 接0，$D_1,\ D_4$ 接 $D$，$D_2$ 接 $D'$，$D_3,\ D_6,\ D_7$ 接1。
+  \end{center}
+  \p 由此得到电路连接图：
+  \begin{figure}[H]
+   \centering
+   \includegraphics[width=6cm]{Exp03}
+   \caption{实验三电路图}
+   \label{fig:Exp03}
+  \end{figure}
+  \p 真值表如下：
+  \begin{table}[H]
+   \centering
+   \begin{tabular}{|cccc|c|cccc|c|}\hline
+    \multicolumn{4}{|c|}{In} &Out 
+    &\multicolumn{4}{|c|}{In} &Out
+    \\\hline
+    $A$ &$B$ &$C$ &$D$ &$Y$ &
+    $A_3$ &$A_2$ &$A_1$ &$A_0$ &$Y$
+    \\\hline
+    0 &0 &0 &0	&0 &
+    1 &0 &0 &0	&0\\
+    0 &0 &0 &1	&0 &
+    1 &0 &0 &1	&1\\
+    0 &0 &1 &0	&0 &
+    1 &0 &1 &0	&0\\
+    0 &0 &1 &1	&1 &
+    1 &0 &1 &1	&0\\
+    0 &1 &0 &0	&1 &
+    1 &1 &0 &0	&1\\
+    0 &1 &0 &1	&0 &
+    1 &1 &0 &1	&1\\
+    0 &1 &1 &0	&1 &
+    1 &1 &1 &0	&1\\
+    0 &1 &1 &1	&1 &
+    1 &1 &1 &1	&1
+    \\\hline
+   \end{tabular}
+   \caption{实验三真值表}
+   \label{tab:Exp03}
+  \end{table}
 
-\section{实验数据处理与分析}
-\subsection{实验内容1}
-	blablabla
-\subsection{误差分析1}
-	blablabla
+  
+ \subsection{实验四：\expd}
+  \p 在全加器中，$\CI$ 是输入的前一位进位标志，$A,\ B$ 为一位二进制待加数，$\CO$ 是输出的本位进位标志，$S$ 是本位的加法结果（计入前一位的进位）。其真值表为：
+  \begin{table}[H]
+   \centering
+   \begin{tabular}{|ccc|cc|}\hline
+    $A$ &$B$ &$\CI$ &$S$ &$\CO$
+    \\\hline
+    0 &0 &0		&0 &0\\
+    0 &0 &1 	&1 &0\\
+    0 &1 &0 	&1 &0\\
+    0 &1 &1 	&0 &1\\
+    1 &0 &0 	&1 &0\\
+    1 &0 &1 	&0 &1\\
+    1 &1 &0 	&0 &1\\
+    1 &1 &1 	&1 &1
+    \\\hline
+   \end{tabular}
+   \caption{实验四真值表}
+   \label{tab:Exp04}
+  \end{table}
+  \p 由此可以得到输出量的逻辑表达式。设 $A\to A_1,\ B\to A_0$ 分别为高、低位选址信号，而 $\CI$ 作为输入在 $D$ 输入端口的信号，那么：
+  \[ S=A'B'\CI+A'B\CI'+AB'CI'+AB\CI=m_0\CI+m_1\CI'+m_2\CI'
+  +m_3\CI \]
+  \[ \CO=A'B\CI+AB'\CI+AB=m_0\cdot0+m_1\CI+m_2\CI+m_3\cdot1 \]
+  \p 若假设 $S$ 用2号数据选择器，$\CO$ 用1号数据选择器，那么端口连接如下：
+  \begin{center}
+   \kaishu $D_{20},\ D_{23}$ 连 $\CI$，$D_{21},\ D_{22}$ 连 $\CI'$；
+  \p $D{1_0}$ 连0，$D_{11},\ D_{12}$ 连 $\CI$，$D_{13}$ 连1。
+  \end{center}
 
-\section{实验总结}
-blablabla
+  
+  \p 由此得到电路连接图：
+  \begin{figure}[H]
+   \centering
+   \includegraphics[width=6cm]{Exp04}
+   \caption{实验四电路图}
+   \label{fig:Exp04}
+  \end{figure}
+
+\section{总结}
+ \p 本次实验我们使用了多路数据选择器（Multiplexer）。$2^n$ 选 $1$ 多路选择器具有 $n$ 位地址选择位，考虑到输出是由输入决定的，那么至多可以构造出 $(n+1)$ 变量的任意逻辑函数。
+ \p 8 选 1 数据选择器 74LS151 有 3 位地址位和 8 位输入。因此可以构造四个变量的任意逻辑函数。
+ \p 双 4 选 1 数据选择器 74LS153 有两个相同的 4 选 1 数据选择器。每个数据选择器都有 2 位地址位和 4 位输入，因此可以构造三个变量的任意逻辑函数。2 个数据选择器就可以同时构造任意两个三变量逻辑函数。
+ 
 \section{实验思考题}
 \subsection{问题一}
 1.试用4选1数据选择器实现一个简单的交通灯故障检测电路。
@@ -252,8 +426,8 @@ blablabla
 \begin{equation}
   D_0---C';D_1---C;D_2---C';D_3---1;
 \end{equation}
-真值表如表 \ref{tab:T1}所示。
-\begin{table}[H]\label{tab:T1}
+真值表如表 \ref{tab:T1} 所示。
+\begin{table}[H]
   \centering
   \begin{tabular}{|ccc|c|}\hline
    $A$&$B$&$C$ &$Y$
@@ -276,12 +450,13 @@ blablabla
    \\\hline
   \end{tabular}
   \caption{交通灯检测器真值表}
+  \label{tab:T1}
  \end{table}
-则由上述分析容易得到电路如\ref {fig:T1}所示。
+则由上述分析容易得到电路图如图 \ref{fig:T1} 所示。
 
-\begin{figure}[htbp]
+\begin{figure}[H]
   \centering
-  \fbox{\includegraphics[width=0.8\linewidth]{T1.png}}
+  \fbox{\includegraphics[width=0.6\linewidth]{T1.png}}
   \caption{思考题一电路图}
   \label{fig:T1}
   \end{figure}
@@ -303,68 +478,5 @@ blablabla
 
 另一种将逻辑函数表示成最小项的或形式，然后将最后一个逻辑变量$A_n$用$D_i$实现，对比数据选择器的输出函数，将$D_i$指派为$A_n,A_n',0,1$这四种类型，此时$Y$直接对应于输出，
 相当于将或门集成在了芯片当中，但需要额外的非门，这个实现较为复杂，但比较节省资源。
-
-
-\begin{appendix}
-
-\section{代码示例}
-
-\begin{lstlisting}[caption={一段C代码},captionpos=b]
-#include <stdio.h>
-int main (int argc, char *argv[]){
-  printf("Hello world!");
-}
-\end{lstlisting}
-
-\section{表格示例}
-表 \ref{tab:tab1}与表 \ref{tab:tab2}展示了表格示例
-\begin{table}[!h!tbp]
-\caption{一个简单的表格}\label{tab:tab1}
-  \centering
-  \begin{tabular}{|l|c|c|}
-	\hline
-	功能          &WEB         &APP         \\ \hline
-	注册          &$\surd$     &$\surd$     \\ \hline
-	登录          &$\surd$     &$\surd$     \\ \hline
-	推送          &$\times$    &$\surd$     \\ \hline
-\end{tabular}
-\end{table}
-
-\begin{table}[!h!tbp]
-\caption{自定义表格}\label{tab:tab2}
-  \centering
-\begin{tabular*}{0.75\textwidth}{@{\extracolsep{\fill}}lcc}
-    \toprule
-    功能          &WEB         &APP         \\
-    \midrule
-    注册          &$\surd$     &$\surd$     \\
-    登录          &$\surd$     &$\surd$     \\
-    推送          &$\times$    &$\surd$     \\
-    \bottomrule
-\end{tabular*}
-\end{table}
-
-
-\section{图片示例}
-图 \ref{fig:logo}展示了一个图片示例。
-\begin{figure}[htbp]
-\centering
-\fbox{\includegraphics[width=0.5\linewidth]{logo}}
-\caption{blablabla}
-\label{fig:logo}
-\end{figure}
-
-\section{公式示例}
-式 (\ref{eqa:01})展示了一个公式的例子。
-\begin{equation}
-S_n = \frac{X_1 + X_2 + \cdots + X_n}{n}
-      = \frac{1}{n}\sum_{i}^{n} X_i
-\label{eqa:01}
-\end{equation}
-
-
-
-
-\end{appendix}
 
 \end{document}
