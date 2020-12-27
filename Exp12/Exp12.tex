@@ -162,7 +162,8 @@
 \newcommand{\stuid}{PB18020631,PB18020567}
 \newcommand{\group}{20}
 \newcommand{\newdate}{\today}
-
+\newcommand{\p}{\par}
+\newcommand{\np}{\par\noindent}
 
 \newcommand{\course}{电子线路实验(1)}
 \newcommand{\newtitle}{波形放大器}
@@ -296,68 +297,19 @@
 本次实验通过搭建RC桥式正弦波振荡器电路和方波三角波发生器电路，学习了震荡电路的基本构成，原理和实验方法。并利用示波器测量了其相关的性能以及性质。总体
 实验结果与理论吻合得较好，虽然有一定误差，但也准确地定位了误差的来源，做了修正。
 \section{实验思考题}
-balabalabala
+ \subsection{RC正弦波振荡器电路中，二极管 $D_1$、$D_2$ 在电路中起什么作用，说明它们的工作原理。}
+ \np \textbf{答：}两个二极管正反并联，这样只要两端电压的绝对值大于二极管开启电压（比如典型值0.7V），那么就会被钳位，电压绝对值无法继续提高。
+ \p 在起振阶段，电压幅值很小，没有超过二极管开启电压，二极管截止，电阻 $R_F$ 比较大，因此
+ \[ A=\left( 1+\frac{R_F}{R_1} \right)>3 \]
+ 这样 $AF>1$，电压会被不断放大，达到起振的效果。
+ \p 而在电压达到一定幅值之后，二极管开启，阻值 $R_F$ 下降，此时
+ \[ A=\left( 1+\frac{R_F}{R_1} \right)\to3 \]
+ 这样较大的电压会逐步稳定，直至 $AF=1$ 完全成立，幅值不再改变，于是产生了稳定的正弦波。
+ \subsection{三角波的输出幅度是否可以超过方波的幅度？如果运放的正负电源不等，输出波形如何？}
+ \textbf{答：}从三角波和方波幅值的关系式
+ \[ V_{o2m}=\frac{R_1}{R_2}V_Z \]
+ 看来，三角波的输出幅度是可以超过方波的。
+ \p 假如运放的正负电压不一样，那么运放的输入输出曲线的正负饱和区不对称，于是滞回比较器的门限电压也不关于0对称。那么三角波的正负端电压也不对称。不过由于稳压对管的限制，方波的电压应该是不会变的。
 
-\begin{appendix}
-
-\section{代码示例}
-
-\begin{lstlisting}[caption={一段C代码},captionpos=b]
-#include <stdio.h>
-int main (int argc, char *argv[]){
-  printf("Hello world!");
-}
-\end{lstlisting}
-
-\section{表格示例}
-表 \ref{tab:tab1}与表 \ref{tab:tab2}展示了表格示例
-\begin{table}[!h!tbp]
-\caption{一个简单的表格}\label{tab:tab1}
-  \centering
-  \begin{tabular}{|l|c|c|}
-	\hline
-	功能          &WEB         &APP         \\ \hline
-	注册          &$\surd$     &$\surd$     \\ \hline
-	登录          &$\surd$     &$\surd$     \\ \hline
-	推送          &$\times$    &$\surd$     \\ \hline
-\end{tabular}
-\end{table}
-
-\begin{table}[!h!tbp]
-\caption{自定义表格}\label{tab:tab2}
-  \centering
-\begin{tabular*}{0.75\textwidth}{@{\extracolsep{\fill}}lcc}
-    \toprule
-    功能          &WEB         &APP         \\
-    \midrule
-    注册          &$\surd$     &$\surd$     \\
-    登录          &$\surd$     &$\surd$     \\
-    推送          &$\times$    &$\surd$     \\
-    \bottomrule
-\end{tabular*}
-\end{table}
-
-
-\section{图片示例}
-图 \ref{fig:logo}展示了一个图片示例。
-\begin{figure}[htbp]
-\centering
-\fbox{\includegraphics[width=0.5\linewidth]{logo}}
-\caption{blablabla}
-\label{fig:logo}
-\end{figure}
-
-\section{公式示例}
-式 (\ref{eqa:01})展示了一个公式的例子。
-\begin{equation}
-S_n = \frac{X_1 + X_2 + \cdots + X_n}{n}
-      = \frac{1}{n}\sum_{i}^{n} X_i
-\label{eqa:01}
-\end{equation}
-
-
-
-
-\end{appendix}
 
 \end{document}
